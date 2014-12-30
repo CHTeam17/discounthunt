@@ -1,0 +1,14 @@
+---
+applications:
+- name: WishListJava-dev
+  buildpack: java8_buildpack
+  instances: 1
+  memory: 1024M
+  host: wish_list_java-dev
+  domain: cf1.hybris.com
+  path: target/wischlist-1.0-SNAPSHOT.war
+  
+  env:
+    REPOSITORY_URL: "http://repo.cf1.hybris.com"
+    HYBRIS_REPO_PASSWORD: '{DESede}PgDPEURiFeurALgCJC87rg=='
+    HYBRIS_REPO_USERNAME: hybris-maven-readonly
