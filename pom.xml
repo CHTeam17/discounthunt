@@ -20,7 +20,7 @@
 		<jersey.version>2.13</jersey.version>
 		<servlet.version>3.1.0</servlet.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
-		<service-sdk.version>3.3.4</service-sdk.version>		
+		<service-sdk.version>3.3.4</service-sdk.version>
 	</properties>
 
 	<dependencies>
@@ -124,7 +124,15 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
+		<!-- Mandatory dependencies for using Spock -->
+		<dependency>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+			<version>0.7-groovy-2.0</version>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- CORS support -->
 		<dependency>
 			<groupId>com.thetransactioncompany</groupId>
@@ -160,8 +168,6 @@
 					</webApp>
 				</configuration>
 			</plugin>
-			
-
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -190,6 +196,41 @@
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
+				</plugin>
+				<!-- Mandatory plugins for using Spock -->
+				<plugin>
+					<groupId>org.codehaus.gmaven</groupId>
+					<artifactId>gmaven-plugin</artifactId>
+					<version>1.4</version>
+					<configuration>
+						<providerSelection>2.0</providerSelection>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>testCompile</goal>
+							</goals>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>org.codehaus.gmaven.runtime</groupId>
+							<artifactId>gmaven-runtime-2.0</artifactId>
+							<version>1.4</version>
+							<exclusions>
+								<exclusion>
+									<groupId>org.codehaus.groovy</groupId>
+									<artifactId>groovy-all</artifactId>
+								</exclusion>
+							</exclusions>
+						</dependency>
+						<dependency>
+							<groupId>org.codehaus.groovy</groupId>
+							<artifactId>groovy-all</artifactId>
+							<version>2.3.8</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>

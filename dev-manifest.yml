@@ -1,12 +1,12 @@
 ---
 applications:
-- name: WishListJava-dev
+- name: WishList-Java
   buildpack: java8_buildpack
   instances: 1
-  memory: 1024M
-  host: wish_list_java-dev
-  domain: cf1.hybris.com
-  path: target/wischlist-1.0-SNAPSHOT.war
+  memory: 512MB
+  host: wishlist-java
+  domain: cf3.hybris.com
+  path: target/wishlist-1.0-SNAPSHOT.war
   
   env:
     REPOSITORY_URL: "http://repo.cf1.hybris.com"
