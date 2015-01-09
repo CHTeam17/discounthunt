@@ -1,11 +1,13 @@
 package com.sap.wishlist.client.document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sap.wishlist.api.generated.Wishlist;
 
 public class DocumentWishlist extends Wishlist {
 
     @javax.validation.constraints.Pattern(regexp = "^.+")
     @javax.validation.constraints.NotNull
+    @JsonIgnore
     private com.sap.wishlist.client.document.DocumentMetaData _metaData;
 
     public com.sap.wishlist.client.document.DocumentMetaData getMetadata()

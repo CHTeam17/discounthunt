@@ -164,6 +164,34 @@ public class RestClient {
     }
 
     /**
+     * Invokes DELETE operation and adds authorization header for Cloud 4
+     * Builder request.
+     */
+    public <T> Response delete(String tenant, URI target, String[] path,
+	    MultivaluedMap<String, String> queryParams,
+	    MultivaluedMap<String, Object> header) {
+	Response resp = delete(target, path, queryParams, addAuthorizationHeader(tenant, header));
+
+	// check response, in case of authentication error retry with new
+	// authorization token
+	if (resp.getStatus() != Response.Status.UNAUTHORIZED.getStatusCode()) {
+	    return resp;
+	} else {
+	    return delete(target, path, queryParams, reNewAuthorizationHeader(tenant, header));
+	}
+    }
+
+    /**
+     * Invokes DELETE operation.
+     */
+    public <T> Response delete(URI target, String[] path,
+	    MultivaluedMap<String, String> queryParams,
+	    MultivaluedMap<String, Object> header) {
+	final Response response = this.createInvocationBuilder(target, path, queryParams, header).delete();
+	return response;
+    }
+
+    /**
      * Copy headers and add authorization header for the request
      */
     private MultivaluedMap<String, Object> addAuthorizationHeader(String tenant,
