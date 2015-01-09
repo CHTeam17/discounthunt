@@ -28,6 +28,6 @@ The corresponding API Product has to be scoped within the used tenant.
 
 # API Console
 You can open API Console in a separate window by using the following link: 
-- [API Console - Internal](http://apigeeusagestatisticservice-dev.cf1.hybris.com)
-- [API Console - External](https://yaas-test.apigee.net/test/apigeeusagestatisticservice)
+- [API Console - Internal](http://wishlist-java.cf3.hybris.com)
+- [API Console - External](https://api.yaas.io/wishlist-java)
 
