@@ -9,6 +9,6 @@ applications:
   path: target/wishlist-1.0-SNAPSHOT.war
   
   env:
-    REPOSITORY_URL: "http://repo.cf1.hybris.com"
+    REPOSITORY_URL: "http://repo.cf3.hybris.com"
     HYBRIS_REPO_PASSWORD: '{DESede}PgDPEURiFeurALgCJC87rg=='
     HYBRIS_REPO_USERNAME: hybris-maven-readonly
