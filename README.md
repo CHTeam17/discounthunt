@@ -26,6 +26,12 @@ The corresponding API Product has to be scoped within the used tenant.
   - [OAuth2 Service](https://api.yaas.io/oauth2/v1)
   - [Document Repository](https://api.yaas.io/repository/v2)
 
+# Run Build / Test
+To run a build you have to supply your proxy information, as the tests are calling to external services.
+```
+mvn clean install -Dhttp.proxyHost=proxy.wdf.sap.corp -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.wdf.sap.corp -Dhttps.proxyPort=8080
+```
+
 # API Console
 You can open API Console in a separate window by using the following link: 
 - [API Console - Internal](http://wishlist-java.cf3.hybris.com)
