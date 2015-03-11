@@ -1,7 +1,7 @@
 ---
 applications:
 - name: WishList-Java
-  buildpack: java8_buildpack
+  buildpack: java_buildpack
   instances: 1
   memory: 512MB
   host: wishlist-java
