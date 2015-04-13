@@ -119,7 +119,7 @@ public class WishlistDocumentClient {
     }
 
     /**
-     * Update an existing wishlist based on its Id
+     * Update an existing wishlist based on its ID
      *
      * @param tenant
      *            hybris tenant where the request has to be processed
@@ -129,7 +129,7 @@ public class WishlistDocumentClient {
      *            Id of the to be updated wishlist
      * @throws WishlistException
      */
-    public void updateWhishlist(final String tenant,
+    public void updateWishlist(final String tenant,
 	    final Wishlist wishlist,
 	    final String wishlistId) throws WishlistException {
 

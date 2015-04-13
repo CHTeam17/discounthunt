@@ -51,7 +51,7 @@ public class WishlistService {
     public Response putByWishlistId(final AppAwareParameters appAware, final java.lang.String wishlistId,
 	    final Wishlist wishlist)
     {
-	documentClient.updateWhishlist(appAware.getHybrisTenant(), wishlist, wishlistId);
+	documentClient.updateWishlist(appAware.getHybrisTenant(), wishlist, wishlistId);
 	return Response.ok().build();
     }
 
