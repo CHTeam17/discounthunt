@@ -33,7 +33,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
      * value(s).
      */
     private static final String ROOT_RESOURCE_PATH = "/wishlists";
-    private static final String TENANT = "wishlistnodejs";
+    private static final String TENANT = "cecwishlist";
     private static final String APP = "test";
     private static Wishlist WISHLIST;
 
