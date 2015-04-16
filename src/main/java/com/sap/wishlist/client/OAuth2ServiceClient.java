@@ -27,12 +27,12 @@ public class OAuth2ServiceClient {
     private static String QUERY_PARAM_HYBRIS_TENANT = "hybris-tenant";
     private static String QUERY_PARAM_SCOPE = "scope";
 
-    @Value("${service.client_id}")
+    @Value("${YAAS_CLIENT_ID}")
     public void setServiceClientID(String serviceClientID) {
 	this.serviceClientID = serviceClientID;
     }
 
-    @Value("${service.client_secret}")
+    @Value("${YAAS_CLIENT_SECRET}")
     public void setServiceClientSecret(String serviceClientSecret) {
 	this.serviceClientSecret = serviceClientSecret;
     }

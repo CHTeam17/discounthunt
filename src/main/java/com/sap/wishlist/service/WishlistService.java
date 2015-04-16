@@ -23,7 +23,7 @@ public class WishlistService {
 
     private String clientId;
 
-    @Value("${service.client_id}")
+    @Value("${YAAS_CLIENT_ID}")
     public void setClientId(String clientId) {
 	this.clientId = clientId;
     }
