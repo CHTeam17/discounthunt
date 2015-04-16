@@ -205,7 +205,7 @@
 					<execution>
 						<id>OAuth</id>
 						<configuration>
-							<sourceRamlUri>https://api.yaas.io/oauth2/v1/api-console/raml/api/proxy/proxy-oauth2-specification.raml</sourceRamlUri>
+							<sourceRamlUri>https://api.yaas.io/hybris/oauth2/v2/api-console/raml/api/proxy/proxy-oauth2-specification.raml</sourceRamlUri>
 							<targetFolder>target/generated-sources/api</targetFolder>
 						</configuration>
 						<phase>generate-sources</phase>
@@ -241,6 +241,19 @@
 										<ignore />
 									</action>
 								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+	                                    <groupId>com.hybris.ramler</groupId>
+	                                    <artifactId>ramler-maven-plugin</artifactId>
+	                                    <versionRange>${ramler.version}</versionRange>
+	                                    <goals>
+	                                        <goal>generate</goal>
+	                                    </goals>
+	                                </pluginExecutionFilter>
+	                                <action>
+										<ignore />
+									</action>
+                                </pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
