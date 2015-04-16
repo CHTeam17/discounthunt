@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.hybris.service-sdk.superpoms</groupId>
 		<artifactId>superpom</artifactId>
-		<version>3.3.4</version>
+		<version>3.8.1</version>
 		<relativePath />
 	</parent>
 
@@ -20,7 +20,8 @@
 		<jersey.version>2.13</jersey.version>
 		<servlet.version>3.1.0</servlet.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
-		<service-sdk.version>3.3.4</service-sdk.version>
+		<service-sdk.version>3.8.1</service-sdk.version>
+		<ramler.version>1.0.0</ramler.version>
 	</properties>
 
 	<dependencies>
@@ -145,7 +146,16 @@
 			<artifactId>cors-filter</artifactId>
 			<version>2.1.1</version>
 		</dependency>
+
+		<!-- RAMLer (generated REST client) -->
+		<dependency>
+			<groupId>com.hybris.ramler</groupId>
+			<artifactId>ramler-support</artifactId>
+			<version>${ramler.version}</version>
+		</dependency>
+
 	</dependencies>
+
 
 	<build>
 		<plugins>
@@ -174,6 +184,38 @@
 					</webApp>
 				</configuration>
 			</plugin>
+
+
+			<plugin>
+				<groupId>com.hybris.ramler</groupId>
+				<artifactId>ramler-maven-plugin</artifactId>
+				<version>${ramler.version}</version>
+				<executions>
+					<execution>
+						<id>DocumentRepository</id>
+						<configuration>
+							<sourceRamlUri>https://api.yaas.io/repository/v2/api-console/raml/api/document-repository-service.raml</sourceRamlUri>
+							<targetFolder>target/generated-sources/api</targetFolder>
+						</configuration>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>OAuth</id>
+						<configuration>
+							<sourceRamlUri>https://api.yaas.io/oauth2/v1/api-console/raml/api/proxy/proxy-oauth2-specification.raml</sourceRamlUri>
+							<targetFolder>target/generated-sources/api</targetFolder>
+						</configuration>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -238,6 +280,7 @@
 						</dependency>
 					</dependencies>
 				</plugin>
+
 			</plugins>
 		</pluginManagement>
 	</build>
