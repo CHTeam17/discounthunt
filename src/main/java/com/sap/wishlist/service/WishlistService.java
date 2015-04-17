@@ -34,7 +34,7 @@ public class WishlistService {
 
 	DocumentRepositoryClient client = new DocumentRepositoryClient(DocumentRepositoryClient.DEFAULT_BASE_URI);
 	final Response response = client.tenant(appAware.getHybrisTenant())
-		.appData(this.clientId)
+		.clientData(this.clientId)
 		.type(WISHLIST_PATH)
 		.prepareGet()
 		.withHeader("Authorization", authorization)
@@ -51,7 +51,7 @@ public class WishlistService {
 
 	DocumentRepositoryClient client = new DocumentRepositoryClient(DocumentRepositoryClient.DEFAULT_BASE_URI);
 	final Response response = client.tenant(appAware.getHybrisTenant())
-		.appData(this.clientId)
+		.clientData(this.clientId)
 		.type(WISHLIST_PATH)
 		.dataId(wishlistId)
 		.preparePost()
@@ -68,7 +68,7 @@ public class WishlistService {
 
 	DocumentRepositoryClient client = new DocumentRepositoryClient(DocumentRepositoryClient.DEFAULT_BASE_URI);
 	final Response response = client.tenant(appAware.getHybrisTenant())
-		.appData(this.clientId)
+		.clientData(this.clientId)
 		.type(WISHLIST_PATH)
 		.dataId(wishlistId)
 		.prepareGet()
@@ -86,7 +86,7 @@ public class WishlistService {
 
 	DocumentRepositoryClient client = new DocumentRepositoryClient(DocumentRepositoryClient.DEFAULT_BASE_URI);
 	final Response response = client.tenant(appAware.getHybrisTenant())
-		.appData(this.clientId)
+		.clientData(this.clientId)
 		.type(WISHLIST_PATH)
 		.dataId(wishlistId)
 		.preparePut()
@@ -103,7 +103,7 @@ public class WishlistService {
 
 	DocumentRepositoryClient client = new DocumentRepositoryClient(DocumentRepositoryClient.DEFAULT_BASE_URI);
 	final Response response = client.tenant(appAware.getHybrisTenant())
-		.appData(this.clientId)
+		.clientData(this.clientId)
 		.type(WISHLIST_PATH)
 		.dataId(wishlistId)
 		.prepareDelete()
