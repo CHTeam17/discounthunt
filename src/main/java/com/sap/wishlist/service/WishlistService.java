@@ -40,7 +40,7 @@ public class WishlistService {
 		.withHeader("Authorization", authorization)
 		.execute();
 
-	return response;
+	return Response.ok().entity(response.readEntity(String.class)).build();
     }
 
     /* POST / */
