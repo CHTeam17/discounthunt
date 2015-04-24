@@ -43,6 +43,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
     public void before() {
 	WISHLIST = new Wishlist();
 	WISHLIST.setId(UUID.randomUUID().toString());
+	WISHLIST.setDescription("Test");
 
 	instanceList.add(WISHLIST.getId());
 
