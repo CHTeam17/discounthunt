@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.hybris.api.DocumentRepositoryClient;
-import com.sap.wishlist.api.generated.AppAwareParameters;
 import com.sap.wishlist.api.generated.ResourceLocation;
 import com.sap.wishlist.api.generated.Wishlist;
+import com.sap.wishlist.api.generated.YaasAwareParameters;
 import com.sap.wishlist.client.OAuth2ServiceClient;
 import com.sap.wishlist.client.document.DocumentWishlist;
 import com.sap.wishlist.utility.ErrorHandler;
@@ -38,13 +38,13 @@ public class WishlistService {
     }
 
     /* GET / */
-    public Response get(final AppAwareParameters appAware) {
-	String authorization = oAuth2Client.requestAccessToken(appAware.getHybrisTenant());
+    public Response get(final YaasAwareParameters yaasAware) {
+	String authorization = oAuth2Client.requestAccessToken(yaasAware.getHybrisTenant());
 
 	DocumentRepositoryClient client = new DocumentRepositoryClient(DocumentRepositoryClient.DEFAULT_BASE_URI);
 	Response response = null;
 	try {
-	    response = client.tenant(appAware.getHybrisTenant())
+	    response = client.tenant(yaasAware.getHybrisTenant())
 		    .clientData(this.clientId)
 		    .type(WISHLIST_PATH)
 		    .prepareGet()
@@ -69,15 +69,15 @@ public class WishlistService {
     }
 
     /* POST / */
-    public Response post(final AppAwareParameters appAware, final UriInfo uriInfo, final Wishlist wishlist) {
+    public Response post(final YaasAwareParameters yaasAware, final UriInfo uriInfo, final Wishlist wishlist) {
 	String wishlistId = wishlist.getId();
 
-	String authorization = oAuth2Client.requestAccessToken(appAware.getHybrisTenant());
+	String authorization = oAuth2Client.requestAccessToken(yaasAware.getHybrisTenant());
 
 	DocumentRepositoryClient client = new DocumentRepositoryClient(DocumentRepositoryClient.DEFAULT_BASE_URI);
 	Response response = null;
 	try {
-	    response = client.tenant(appAware.getHybrisTenant())
+	    response = client.tenant(yaasAware.getHybrisTenant())
 		    .clientData(this.clientId)
 		    .type(WISHLIST_PATH)
 		    .dataId(wishlistId)
@@ -99,13 +99,13 @@ public class WishlistService {
     }
 
     /* GET //{wishlistId} */
-    public Response getByWishlistId(final AppAwareParameters appAware, final java.lang.String wishlistId) {
-	String authorization = oAuth2Client.requestAccessToken(appAware.getHybrisTenant());
+    public Response getByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId) {
+	String authorization = oAuth2Client.requestAccessToken(yaasAware.getHybrisTenant());
 
 	DocumentRepositoryClient client = new DocumentRepositoryClient(DocumentRepositoryClient.DEFAULT_BASE_URI);
 	Response response = null;
 	try {
-	    response = client.tenant(appAware.getHybrisTenant())
+	    response = client.tenant(yaasAware.getHybrisTenant())
 		    .clientData(this.clientId)
 		    .type(WISHLIST_PATH)
 		    .dataId(wishlistId)
@@ -126,14 +126,14 @@ public class WishlistService {
     }
 
     /* PUT //{wishlistId} */
-    public Response putByWishlistId(final AppAwareParameters appAware, final java.lang.String wishlistId,
+    public Response putByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId,
 	    final Wishlist wishlist) {
-	String authorization = oAuth2Client.requestAccessToken(appAware.getHybrisTenant());
+	String authorization = oAuth2Client.requestAccessToken(yaasAware.getHybrisTenant());
 
 	DocumentRepositoryClient client = new DocumentRepositoryClient(DocumentRepositoryClient.DEFAULT_BASE_URI);
 	Response response = null;
 	try {
-	    response = client.tenant(appAware.getHybrisTenant())
+	    response = client.tenant(yaasAware.getHybrisTenant())
 		    .clientData(this.clientId)
 		    .type(WISHLIST_PATH)
 		    .dataId(wishlistId)
@@ -153,13 +153,13 @@ public class WishlistService {
     }
 
     /* DELETE //{wishlistId} */
-    public Response deleteByWishlistId(final AppAwareParameters appAware, final java.lang.String wishlistId) {
-	String authorization = oAuth2Client.requestAccessToken(appAware.getHybrisTenant());
+    public Response deleteByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId) {
+	String authorization = oAuth2Client.requestAccessToken(yaasAware.getHybrisTenant());
 
 	DocumentRepositoryClient client = new DocumentRepositoryClient(DocumentRepositoryClient.DEFAULT_BASE_URI);
 	Response response = null;
 	try {
-	    response = client.tenant(appAware.getHybrisTenant())
+	    response = client.tenant(yaasAware.getHybrisTenant())
 
 		    .clientData(this.clientId)
 		    .type(WISHLIST_PATH)

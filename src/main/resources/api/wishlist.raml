@@ -12,7 +12,7 @@ schemas:
   - error: !include https://api.yaas.io/patterns/v1/schema-error-message.json
 
 traits: 
-  - !include https://api.yaas.io/patterns/v2/trait-app-aware.yaml
+  - !include https://api.yaas.io/patterns/v1/trait-yaas-aware.yaml
 
 resourceTypes: 
   - !include https://api.yaas.io/patterns/v1/resource-type-element.yaml
@@ -20,7 +20,7 @@ resourceTypes:
 
 /wishlists:
   type: collection
-  is: [appAware]
+  is: [yaasAware]
   get:
     description: Gets all wishlists
     responses:
@@ -36,7 +36,7 @@ resourceTypes:
 
   /{wishlistId}:
     type: element
-    is: [appAware]
+    is: [yaasAware]
     uriParameters:
       wishlistId:
         description: the id of the wishlist to work on

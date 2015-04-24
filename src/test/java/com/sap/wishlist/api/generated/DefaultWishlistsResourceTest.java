@@ -34,7 +34,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
      */
     private static final String ROOT_RESOURCE_PATH = "/wishlists";
     private static final String TENANT = "cecwishlist";
-    private static final String APP = "test";
+    private static final String CLIENT = "test";
     private static Wishlist WISHLIST;
 
     private ArrayList<String> instanceList = new ArrayList<String>();
@@ -57,7 +57,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 	final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("");
 
 	final Response response = target.request()
-		.header(Headers.APP, APP)
+		.header(Headers.CLIENT, CLIENT)
 		.header(Headers.TENANT, TENANT)
 		.get();
 
@@ -90,7 +90,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 	final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("/" + WISHLIST.getId());
 
 	final Response response = target.request()
-		.header(Headers.APP, APP)
+		.header(Headers.CLIENT, CLIENT)
 		.header(Headers.TENANT, TENANT)
 		.get();
 
@@ -110,7 +110,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 		javax.ws.rs.client.Entity.entity(entityBody, "application/json");
 
 	final Response response = target.request()
-		.header(Headers.APP, APP)
+		.header(Headers.CLIENT, CLIENT)
 		.header(Headers.TENANT, TENANT)
 		.put(entity);
 
@@ -147,7 +147,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 		javax.ws.rs.client.Entity.entity(entityBody, "application/json");
 
 	return target.request()
-		.header(Headers.APP, APP)
+		.header(Headers.CLIENT, CLIENT)
 		.header(Headers.TENANT, TENANT)
 		.post(entity);
     }
@@ -156,7 +156,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 	final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("/" + wishlistId);
 
 	return target.request()
-		.header(Headers.APP, APP)
+		.header(Headers.CLIENT, CLIENT)
 		.header(Headers.TENANT, TENANT)
 		.delete();
     }

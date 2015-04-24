@@ -34,38 +34,36 @@ public class DefaultWishlistsResource implements com.sap.wishlist.api.generated.
 
     /* GET / */
     @Override
-    public Response get(final AppAwareParameters appAware)
+    public Response get(YaasAwareParameters yaasAware)
     {
-	return wishlistService.get(appAware);
+	return wishlistService.get(yaasAware);
     }
 
     /* POST / */
     @Override
-    public Response post(final AppAwareParameters appAware, final Wishlist wishlist)
+    public Response post(YaasAwareParameters yaasAware, Wishlist wishlist)
     {
-	return wishlistService.post(appAware, uriInfo, wishlist);
+	return wishlistService.post(yaasAware, uriInfo, wishlist);
     }
 
     /* GET //{wishlistId} */
     @Override
-    public Response getByWishlistId(final AppAwareParameters appAware, final java.lang.String wishlistId)
+    public Response getByWishlistId(YaasAwareParameters yaasAware, String wishlistId)
     {
-	return wishlistService.getByWishlistId(appAware, wishlistId);
+	return wishlistService.getByWishlistId(yaasAware, wishlistId);
     }
 
     /* PUT //{wishlistId} */
     @Override
-    public Response putByWishlistId(final AppAwareParameters appAware, final java.lang.String wishlistId,
-	    final Wishlist wishlist)
+    public Response putByWishlistId(YaasAwareParameters yaasAware, String wishlistId, Wishlist wishlist)
     {
-	return wishlistService.putByWishlistId(appAware, wishlistId, wishlist);
+	return wishlistService.putByWishlistId(yaasAware, wishlistId, wishlist);
     }
 
     /* DELETE //{wishlistId} */
     @Override
-    public Response deleteByWishlistId(final AppAwareParameters appAware, final java.lang.String wishlistId)
+    public Response deleteByWishlistId(YaasAwareParameters yaasAware, String wishlistId)
     {
-	return wishlistService.deleteByWishlistId(appAware, wishlistId);
+	return wishlistService.deleteByWishlistId(yaasAware, wishlistId);
     }
-
 }
