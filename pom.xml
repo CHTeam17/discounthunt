@@ -194,7 +194,7 @@
 					<execution>
 						<id>DocumentRepository</id>
 						<configuration>
-							<sourceRamlUri>https://api.yaas.io/repository/v2/api-console/raml/api/document-repository.raml</sourceRamlUri>
+							<sourceRamlUri>https://api.yaas.io/hybris/repository/b1/api-console/raml/api/document-repository.raml</sourceRamlUri>
 							<targetFolder>target/generated-sources/api</targetFolder>
 						</configuration>
 						<phase>generate-sources</phase>

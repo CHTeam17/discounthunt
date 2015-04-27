@@ -30,11 +30,11 @@ public class WishlistService {
     @Inject
     private OAuth2ServiceClient oAuth2Client;
 
-    private String clientId;
+    private String client;
 
-    @Value("${YAAS_CLIENT_ID}")
-    public void setClientId(String clientId) {
-	this.clientId = clientId;
+    @Value("${YAAS_CLIENT}")
+    public void setClient(String client) {
+	this.client = client;
     }
 
     /* GET / */
@@ -45,7 +45,7 @@ public class WishlistService {
 	Response response = null;
 	try {
 	    response = client.tenant(yaasAware.getHybrisTenant())
-		    .clientData(this.clientId)
+		    .clientData(this.client)
 		    .type(WISHLIST_PATH)
 		    .prepareGet()
 		    .withHeader("Authorization", authorization)
@@ -78,7 +78,7 @@ public class WishlistService {
 	Response response = null;
 	try {
 	    response = client.tenant(yaasAware.getHybrisTenant())
-		    .clientData(this.clientId)
+		    .clientData(this.client)
 		    .type(WISHLIST_PATH)
 		    .dataId(wishlistId)
 		    .preparePost()
@@ -106,7 +106,7 @@ public class WishlistService {
 	Response response = null;
 	try {
 	    response = client.tenant(yaasAware.getHybrisTenant())
-		    .clientData(this.clientId)
+		    .clientData(this.client)
 		    .type(WISHLIST_PATH)
 		    .dataId(wishlistId)
 		    .prepareGet()
@@ -134,7 +134,7 @@ public class WishlistService {
 	Response response = null;
 	try {
 	    response = client.tenant(yaasAware.getHybrisTenant())
-		    .clientData(this.clientId)
+		    .clientData(this.client)
 		    .type(WISHLIST_PATH)
 		    .dataId(wishlistId)
 		    .preparePut()
@@ -161,7 +161,7 @@ public class WishlistService {
 	try {
 	    response = client.tenant(yaasAware.getHybrisTenant())
 
-		    .clientData(this.clientId)
+		    .clientData(this.client)
 		    .type(WISHLIST_PATH)
 		    .dataId(wishlistId)
 		    .prepareDelete()
