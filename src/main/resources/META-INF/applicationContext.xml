@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="com.sap.wishlist" />
+	<context:component-scan base-package="com.sap.wishlist"/>
+	
+	<context:property-placeholder location="classpath:/default.properties" />
 
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -14,6 +17,22 @@
 		<property name="ignoreResourceNotFound" value="true" />
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 		<property name="searchSystemEnvironment" value="true" />
+	</bean>	
+
+	<bean id="authorizedExecutionTemplate" autowire-candidate="true"
+		class="com.hybris.authorization.integration.AuthorizedExecutionTemplate">
+		<constructor-arg ref="accessTokenProvider" />
 	</bean>
 
+	<bean id="accessTokenProvider"
+		class="com.hybris.authorization.cache.SimpleCachingProviderWrapper">
+		<constructor-arg>
+			<bean
+				class="com.hybris.authorization.protocol.ClientCredentialsGrantProvider">
+				<property name="authorizationUri" value="${OAUTH2_URI}" />
+				<property name="clientId" value="${YAAS_CLIENT_ID}" />
+				<property name="clientSecret" value="${YAAS_CLIENT_SECRET}" />
+			</bean>
+		</constructor-arg>
+	</bean>
 </beans>

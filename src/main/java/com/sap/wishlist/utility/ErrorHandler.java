@@ -5,12 +5,10 @@ import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 
-import org.springframework.web.client.HttpClientErrorException;
-
 public class ErrorHandler {
 
-    public static void handleResponseStatusCode(HttpClientErrorException clientError) {
-	switch (clientError.getStatusCode().value()) {
+    public static void handleResponseStatusCode(int statusCode) {
+	switch (statusCode) {
 	    case 400:
 		throw new BadRequestException();
 	    case 401:
@@ -20,8 +18,6 @@ public class ErrorHandler {
 		throw new ForbiddenException();
 	    case 404:
 		throw new NotFoundException();
-
 	}
     }
-
 }

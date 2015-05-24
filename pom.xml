@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.hybris.service-sdk.superpoms</groupId>
 		<artifactId>superpom</artifactId>
-		<version>3.8.1</version>
+		<version>3.11.1</version>
 		<relativePath />
 	</parent>
 
@@ -16,18 +16,33 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<jaxrs.version>2.0</jaxrs.version>
-		<jersey.version>2.13</jersey.version>
-		<servlet.version>3.1.0</servlet.version>
-		<spring.version>4.1.1.RELEASE</spring.version>
-		<service-sdk.version>3.8.1</service-sdk.version>
+		<!-- hybris projects -->
+		<service-sdk.version>3.11.1</service-sdk.version>
 		<ramler.version>1.0.0</ramler.version>
+
+		<!-- plugins -->
+		<jetty.plugin.version>9.2.6.v20141205</jetty.plugin.version>
+
+		<!-- libraries -->
+		<jaxrs.version>2.0.1</jaxrs.version>
+		<jersey.version>2.14</jersey.version>
+		<javax.servlet.version>3.1.0</javax.servlet.version>
+		<spring.version>4.1.4.RELEASE</spring.version>
+		<cors.filter.version>2.2.1</cors.filter.version>
+
+		<!-- test libraries -->
+		<junit.version>4.12</junit.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.hybris.service-sdk.libraries</groupId>
 			<artifactId>libraries</artifactId>
+			<version>${service-sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hybris.service-sdk.libraries</groupId>
+			<artifactId>authorization</artifactId>
 			<version>${service-sdk.version}</version>
 		</dependency>
 
@@ -108,15 +123,27 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>${servlet.version}</version>
+			<version>${javax.servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- Rest Template -->
+		<dependency>
+	        <groupId>org.springframework.security</groupId>
+	        <artifactId>spring-security-core</artifactId>
+	        <version>3.2.5.RELEASE</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.security.oauth</groupId>
+	        <artifactId>spring-security-oauth2</artifactId>
+	        <version>2.0.6.RELEASE</version>
+	    </dependency> 
 
 		<!-- testing -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -132,30 +159,20 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Mandatory dependencies for using Spock -->
-		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-core</artifactId>
-			<version>0.7-groovy-2.0</version>
-			<scope>test</scope>
-		</dependency>
-
 		<!-- CORS support -->
 		<dependency>
 			<groupId>com.thetransactioncompany</groupId>
 			<artifactId>cors-filter</artifactId>
-			<version>2.1.1</version>
+			<version>${cors.filter.version}</version>
 		</dependency>
-
+		
 		<!-- RAMLer (generated REST client) -->
 		<dependency>
 			<groupId>com.hybris.ramler</groupId>
 			<artifactId>ramler-support</artifactId>
 			<version>${ramler.version}</version>
 		</dependency>
-
 	</dependencies>
-
 
 	<build>
 		<plugins>
@@ -176,7 +193,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.2.3.v20140905</version>
+				<version>${jetty.plugin.version}</version>
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<webApp>
@@ -184,8 +201,6 @@
 					</webApp>
 				</configuration>
 			</plugin>
-
-
 			<plugin>
 				<groupId>com.hybris.ramler</groupId>
 				<artifactId>ramler-maven-plugin</artifactId>
@@ -196,17 +211,7 @@
 						<configuration>
 							<sourceRamlUri>https://api.yaas.io/hybris/repository/b1/api-console/raml/api/document-repository.raml</sourceRamlUri>
 							<targetFolder>target/generated-sources/api</targetFolder>
-						</configuration>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>OAuth</id>
-						<configuration>
-							<sourceRamlUri>https://api.yaas.io/hybris/oauth2/v2/api-console/raml/api/proxy/proxy-oauth2-specification.raml</sourceRamlUri>
-							<targetFolder>target/generated-sources/api</targetFolder>
+							<basePackage>com.sap.wishlist.client.documentrepository</basePackage>
 						</configuration>
 						<phase>generate-sources</phase>
 						<goals>
@@ -215,7 +220,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -258,44 +262,44 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
-				<!-- Mandatory plugins for using Spock -->
+				<!-- For Code Coverage -->
 				<plugin>
-					<groupId>org.codehaus.gmaven</groupId>
-					<artifactId>gmaven-plugin</artifactId>
-					<version>1.4</version>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.7.2.201409121644</version>
 					<configuration>
-						<providerSelection>2.0</providerSelection>
+						<includes>
+							<include>com.sap.*</include>
+						</includes>
 					</configuration>
 					<executions>
 						<execution>
+							<id>prepare-unit-test-agent</id>
 							<goals>
-								<goal>compile</goal>
-								<goal>testCompile</goal>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>generate-unit-test-report</id>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>prepare-integration-test-agent</id>
+							<goals>
+								<goal>prepare-agent-integration</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>generate-integration-test-report</id>
+							<goals>
+								<goal>report-integration</goal>
 							</goals>
 						</execution>
 					</executions>
-					<dependencies>
-						<dependency>
-							<groupId>org.codehaus.gmaven.runtime</groupId>
-							<artifactId>gmaven-runtime-2.0</artifactId>
-							<version>1.4</version>
-							<exclusions>
-								<exclusion>
-									<groupId>org.codehaus.groovy</groupId>
-									<artifactId>groovy-all</artifactId>
-								</exclusion>
-							</exclusions>
-						</dependency>
-						<dependency>
-							<groupId>org.codehaus.groovy</groupId>
-							<artifactId>groovy-all</artifactId>
-							<version>2.3.8</version>
-						</dependency>
-					</dependencies>
 				</plugin>
-
 			</plugins>
 		</pluginManagement>
 	</build>
-
 </project>

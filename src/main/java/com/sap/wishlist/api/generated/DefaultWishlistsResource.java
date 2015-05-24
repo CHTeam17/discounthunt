@@ -1,7 +1,7 @@
 /*
  * [y] hybris Platform
  *
- * Copyright (c) 2000-2014 hybris AG
+ * Copyright (c) 2000-2015 hybris AG
  * All rights reserved.
  *
  * This software is the confidential and proprietary information of hybris
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import com.sap.wishlist.service.WishlistService;
 
 /**
- * Resource class containing the custom logic. Place put your logic here!
+ * Resource class containing the custom logic. Please put your logic here!
  */
 @Component("apiWishlistsResource")
 @Singleton
@@ -34,9 +34,9 @@ public class DefaultWishlistsResource implements com.sap.wishlist.api.generated.
 
     /* GET / */
     @Override
-    public Response get(YaasAwareParameters yaasAware)
+    public Response get(final PagedParameters paged, final YaasAwareParameters yaasAware)
     {
-	return wishlistService.get(yaasAware);
+	return wishlistService.get(paged, yaasAware);
     }
 
     /* POST / */

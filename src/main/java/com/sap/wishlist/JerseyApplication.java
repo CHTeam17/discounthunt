@@ -3,6 +3,7 @@
  */
 package com.sap.wishlist;
 
+import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
@@ -26,6 +27,9 @@ public class JerseyApplication extends ResourceConfig
 
 	// resources
 	register(ApiFeature.class);
+
+	// logging
+	register(LoggingFilter.class);
 
 	// apiconsole
 	register(ApiConsoleFeature.class);
