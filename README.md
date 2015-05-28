@@ -23,8 +23,8 @@ The corresponding API Product has to be scoped within the used tenant.
 
 ## Dependencies
 - Core Service
-  - [OAuth2 Service](https://api.yaas.io/oauth2/v1)
-  - [Document Repository](https://api.yaas.io/repository/v2)
+  - [OAuth2 Service](https://api.yaas.io/hybris/oauth2/v2)
+  - [Document Repository](https://api.yaas.io/hybris/repository/b1)
 
 # Run Build / Test
 To run a build you have to supply your proxy information, as the tests are calling external services.
