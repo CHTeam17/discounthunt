@@ -50,7 +50,7 @@ public class WishlistService {
 	ArrayList<Wishlist> result = null;
 	Response response = authorizedExecutionTemplate.executeAuthorized(
 		new AuthorizationScope(authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop().toString()),
+		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
 		    @Override
@@ -98,7 +98,7 @@ public class WishlistService {
 
 	Response response = authorizedExecutionTemplate.executeAuthorized(
 		new AuthorizationScope(authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop().toString()),
+		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
 		    @Override
@@ -128,7 +128,7 @@ public class WishlistService {
     public Response getByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId) {
 	Response response = authorizedExecutionTemplate.executeAuthorized(
 		new AuthorizationScope(authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop().toString()),
+		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
 		    @Override
@@ -160,7 +160,7 @@ public class WishlistService {
 
 	Response response = authorizedExecutionTemplate.executeAuthorized(
 		new AuthorizationScope(authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop().toString()),
+		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
 		    @Override
@@ -188,7 +188,7 @@ public class WishlistService {
     public Response deleteByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId) {
 	Response response = authorizedExecutionTemplate.executeAuthorized(
 		new AuthorizationScope(authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop().toString()),
+		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
 		    @Override
