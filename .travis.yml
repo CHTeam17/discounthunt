@@ -25,7 +25,7 @@ install:
 script:
 - mvn test -B --settings settings.xml -Dmaven.install.skip=true -Dhttp.proxyHost=proxy.wdf.sap.corp
   -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.wdf.sap.corp -Dhttps.proxyPort=8080
-- sh upload.sh travis-manifest.yml
+- sh upload.sh dev-manifest.yml
 cache:
   directories:
   - $HOME/.m2
