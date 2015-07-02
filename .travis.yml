@@ -1,0 +1,39 @@
+language: java
+env:
+  global:
+  - http_proxy=http://proxy.wdf.sap.corp:8080 HTTP_PROXY=http://proxy.wdf.sap.corp:8080
+    https_proxy=http://proxy.wdf.sap.corp:8080 HTTPS_PROXY=http://proxy.wdf.sap.corp:8080
+    ftp_proxy=http://proxy.wdf.sap.corp:8080 FTP_PROXY=http://proxy.wdf.sap.corp:8080
+    no_proxy="*.local,169.254/16,*.sap.corp,*.corp.sap" NO_PROXY="*.local,169.254/16,*.sap.corp,*.corp.sap"
+  - MAVEN_OPTS="-Dhttp.proxyHost=proxy.wdf.sap.corp -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.wdf.sap.corp
+    -Dhttps.proxyPort=8080"
+  - secure: ecvb5bB3198+xo3XpYdTJ+CywExahHztEp6KkeAjBJg7legtbzI1Ixn0CyLrEETSFZxoFpVrNLx38lSGqqCF0ZmUVzgNQkaRNVEBgW0bn+iBG2WlGMj1Lmvcq5IS19gh4sXJb+Q31t937B2YzduRzMQk46kgH+yZJ3GTxXWAzL4=
+  - secure: YEk8KiunoZXQg57JbnQUItziLpnfotbehukamrfrHt6wRItaDIVvLK+W58sm/+/5etqK/J3XaLkRtoCA0BIg+2IK33slBf3bcsYqRWPFwXCFko7CSaxUUu5fV/pty7nFv8HHyfOb99yp9FkqkiuVVCsPANaF7sCpbrxrTP1oX70=
+  - secure: dnZ8rlEJXl/lZF33VXNkryEleno+51c+UxVyy2IyRpvveiQ/1bqdwR0YND/+B2NTZBf/dHS6HAc6/qidURMAh5MQjIo0kAK4mOnN5+ak+Ny1WYgmTZox/Fb1bVV3W7jELPavzO/nrZj2ESYI7fs9pBmPOixgz16q2RvEOSDPuMo=
+  - secure: NMQYJKXhwQbO49xAzkCVW5tDY20fF4u+uOpyeoJjXYXC4/QrSSoVkjTbkBFSa4UaHGaz5glWBvEafButscNdkCyYLtOTFSFzra/dvKHIxkYnlZ2jmCIMic3ecE8YAvonpcflg1EKarzJrrDIkQfzz0O059t7FoxlpENYL96bMdE=
+  - secure: D9OE4+E1tWwCxeO2q+aQ+Ig3d1RRnieHLOMOOvAtB9jwH1qse95liFY/BT2g5+RLWjruaU3Wrnd8C6uom+GgAlFiMsI1ucA73ebCgaYJEBd/8PcEMpqsCwJeykHqS52NUPFlaS6sE2wcUP9O2iHMayWgr1rWaCIK2ZkLO/zvygs=
+jdk:
+- oraclejdk8
+install:
+- mvn install -DskipTests=true --settings settings.xml -Dhttp.proxyHost=proxy.wdf.sap.corp
+  -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.wdf.sap.corp -Dhttps.proxyPort=8080
+script:
+- mvn test -B --settings settings.xml -Dmaven.install.skip=true -Dhttp.proxyHost=proxy.wdf.sap.corp
+  -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.wdf.sap.corp -Dhttps.proxyPort=8080
+cache:
+  directories:
+  - $HOME/.m2
+notifications:
+  email:
+    recipients:
+    - sebastian.netuschil@sap.com
+    on_success: always
+deploy:
+  edge: true
+  provider: cloudfoundry
+  username: team-sap-east@sap.com
+  password:
+    secure: ZMMthOBKg6JddWdYPdkPKOhwqQ95yYTS91HJYabq3Dk11Lw13PNtWPeVOU4flZkkzbbwThLimTMQDtGrmOtruQa6Dm5KOq2xVSpNKap5XfdQtpHOvyMVtNIr8Rt+7IsggZLv25pmU0aa39xpVsMHJXfBCjOD+KquVDTru8jiQ7I=
+  api: https://api.cf3.hybris.com
+  organization: sap_cec_prod
+  space: team-sap-east

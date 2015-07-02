@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+        
+	<!-- Without these plugin groups you cannot call the plugins directly, see
+	http://maven.apache.org/settings.html#Plugin_Groups -->
+	<pluginGroups>
+		<pluginGroup>de.hybris.mavenplugins</pluginGroup>
+	    <pluginGroup>org.codehaus.cargo</pluginGroup>
+	    <pluginGroup>de.hybris.platform</pluginGroup>
+	</pluginGroups>
+
+	<!-- Your credentials for the hybris repositories -->
+	<servers>
+		<!-- global hybris repository for read access -->
+		<server>
+	    	<id>hybris-repository</id>
+	        <username>${env.MVN_USER}</username>
+	        <password>${env.MVN_PASSWORD}</password>
+		</server>
+		<!-- hybris release repository -->
+        <server>
+			<id>hybris-release</id>
+			<username>${env.MVN_USER}</username>
+			<password>${env.MVN_PASSWORD}</password>
+        </server>
+	</servers>
+	<proxies>
+		<proxy>
+	  		<active>true</active>
+			<protocol>http</protocol>
+	  		<host>proxy.wdf.sap.corp</host>
+	  		<port>8080</port>
+		</proxy>
+	</proxies>
+        <profiles>
+            <profile>
+            	<id>default</id>
+            	<activation>
+                    <activeByDefault>true</activeByDefault>
+            	</activation>
+            	<repositories>
+                    <!-- hybris repositories -->
+                    <repository>
+                    	<id>hybris-repository</id>
+                       	<url>https://repository.hybris.com/hybris-repository</url>
+                        <releases>
+                        	<enabled>true</enabled>
+                            <updatePolicy>daily</updatePolicy>
+                            <checksumPolicy>fail</checksumPolicy>
+                        </releases>
+                        <snapshots>
+                            <enabled>true</enabled>
+                            <updatePolicy>always</updatePolicy>
+                            <checksumPolicy>fail</checksumPolicy>
+                        </snapshots>
+                    </repository>
+                    <repository>
+                        <id>hybris-release</id>
+                        <url>https://repository.hybris.com/hybris-release</url>
+                        <releases>
+                        	<enabled>true</enabled>
+                            <updatePolicy>daily</updatePolicy>
+                            <checksumPolicy>fail</checksumPolicy>
+                        </releases>
+                        <snapshots>
+                        	<enabled>false</enabled>
+                        </snapshots>
+                    </repository>
+                    <!-- SAP repositories -->
+					<repository>
+			  			<id>nexus-snapshot</id>
+			  			<url>http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.snapshots/</url>
+					</repository>
+					<repository>
+			  			<id>nexus-milestones</id>
+			  			<url>http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones/</url>
+					</repository>
+            	</repositories>
+	            <pluginRepositories>
+                    <pluginRepository>
+	                    <snapshots>
+	                    	<enabled>false</enabled>
+	                    </snapshots>
+	                    <id>hybris-repository</id>
+	                    <name>hybris-repository</name>
+	                    <url>https://repository.hybris.com/hybris-repository</url>
+                    </pluginRepository>
+	            </pluginRepositories>
+    		</profile>
+        </profiles>
+</settings>
