@@ -12,14 +12,20 @@ env:
   - secure: dnZ8rlEJXl/lZF33VXNkryEleno+51c+UxVyy2IyRpvveiQ/1bqdwR0YND/+B2NTZBf/dHS6HAc6/qidURMAh5MQjIo0kAK4mOnN5+ak+Ny1WYgmTZox/Fb1bVV3W7jELPavzO/nrZj2ESYI7fs9pBmPOixgz16q2RvEOSDPuMo=
   - secure: NMQYJKXhwQbO49xAzkCVW5tDY20fF4u+uOpyeoJjXYXC4/QrSSoVkjTbkBFSa4UaHGaz5glWBvEafButscNdkCyYLtOTFSFzra/dvKHIxkYnlZ2jmCIMic3ecE8YAvonpcflg1EKarzJrrDIkQfzz0O059t7FoxlpENYL96bMdE=
   - secure: D9OE4+E1tWwCxeO2q+aQ+Ig3d1RRnieHLOMOOvAtB9jwH1qse95liFY/BT2g5+RLWjruaU3Wrnd8C6uom+GgAlFiMsI1ucA73ebCgaYJEBd/8PcEMpqsCwJeykHqS52NUPFlaS6sE2wcUP9O2iHMayWgr1rWaCIK2ZkLO/zvygs=
+  - secure: bpYBGYaEiwUDgQ7YEJjDKDhQXJ67bXm3Yu9mZ5cy3m7/brlamNwsmQF1H1SsndaxEdPkC5XtKJP4iJIg7VwTQDBSYak8W8fwuP5Ajq7czE9lFDd068Bp2sjCIIKJu2PNDouCWBma0IPwzjJOeJQJgnBMGWiP6vwDcvFXGY3MK9M=
+  - secure: OWnxMq6GhvdxVgB8cA1NT0fB42nPyKGTii5h+CR7qt2Kwv/uFJjDGwKmQUP0+77oYhNr4obzju7aG+FFS8zhAcaRr6pGS/k7CYA3yPrriuD9K50q/Z+M288Xcdgbjwtt3KmhGs4c43mV1PLWGjlsXTWQjzKMaG4C4F1WVW0+qso=
 jdk:
 - oraclejdk8
+before_install:
+- wget -O cf-linux-amd64.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.11.2&source=github-rel"
+- tar xfz cf-linux-amd64.tgz
 install:
 - mvn install -DskipTests=true --settings settings.xml -Dhttp.proxyHost=proxy.wdf.sap.corp
   -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.wdf.sap.corp -Dhttps.proxyPort=8080
 script:
 - mvn test -B --settings settings.xml -Dmaven.install.skip=true -Dhttp.proxyHost=proxy.wdf.sap.corp
   -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.wdf.sap.corp -Dhttps.proxyPort=8080
+- sh upload.sh travis-manifest.yml
 cache:
   directories:
   - $HOME/.m2
@@ -28,12 +34,3 @@ notifications:
     recipients:
     - sebastian.netuschil@sap.com
     on_success: always
-deploy:
-  edge: true
-  provider: cloudfoundry
-  username: team-sap-east@sap.com
-  password:
-    secure: ZMMthOBKg6JddWdYPdkPKOhwqQ95yYTS91HJYabq3Dk11Lw13PNtWPeVOU4flZkkzbbwThLimTMQDtGrmOtruQa6Dm5KOq2xVSpNKap5XfdQtpHOvyMVtNIr8Rt+7IsggZLv25pmU0aa39xpVsMHJXfBCjOD+KquVDTru8jiQ7I=
-  api: https://api.cf3.hybris.com
-  organization: sap_cec_prod
-  space: team-sap-east
