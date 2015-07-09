@@ -67,6 +67,17 @@ resourceTypes:
       
 /sendemail:
   is: [yaasAware]
+  description: Sample usage of the email service 
   post:
     description: Sends an e-mail to hybris-user
   
+/saplogo:
+  is: [yaasAware]
+  description: Sample usage of the media repository; Provides methods to upload and delete the SAP logo there.
+  post:
+    description: Uploads SAP logo to media repository
+
+  /{mediaId}:
+    is: [yaasAware]
+    delete:
+      description: Removes SAP logo from media repository

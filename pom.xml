@@ -63,6 +63,11 @@
 			<version>${jersey.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.glassfish.jersey.ext</groupId>
 			<artifactId>jersey-spring3</artifactId>
 			<version>${jersey.version}</version>
@@ -225,6 +230,19 @@
 							<sourceRamlUri>https://api.yaas.io/hybris/email/b1/api-console/raml/api/emailservice.raml</sourceRamlUri>
 							<targetFolder>target/generated-sources/api</targetFolder>
 							<basePackage>com.sap.yaastemplates.client.email</basePackage>
+						</configuration>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+					
+					<execution>
+						<id>MediaRepository</id>
+						<configuration>
+							<sourceRamlUri>https://api.yaas.io/hybris/media-repository/b1/api-console/raml/api/media-repository.raml</sourceRamlUri>
+							<targetFolder>target/generated-sources/api</targetFolder>
+							<basePackage>com.sap.yaastemplates.client.mediaRepository</basePackage>
 						</configuration>
 						<phase>generate-sources</phase>
 						<goals>
