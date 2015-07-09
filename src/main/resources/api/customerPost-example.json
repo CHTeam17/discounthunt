@@ -1,0 +1,24 @@
+{
+    "title": "Dr.",
+    "firstName": "Max",
+    "middleName": "Simon",
+    "lastName": "Muster",
+    "contactEmail": "noreply@hybristest.com",
+    "contactPhone": "+1 1111 2222 3333",
+    "preferredLanguage": "en_US",
+    "preferredCurrency": "USD",
+    "addresses": [
+        {
+            "contactName": "Business",
+            "street": "Musterstrasse",
+            "streetNumber": "42",
+            "city": "Munich",
+            "country": "Germany",
+            "isDefault": "true",
+            "tags": [
+                "shipping",
+                "home"
+            ]
+        }
+    ]
+}

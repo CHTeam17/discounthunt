@@ -211,6 +211,20 @@
 				<artifactId>ramler-maven-plugin</artifactId>
 				<version>${ramler.version}</version>
 				<executions>
+				
+					<execution>
+						<id>Customer</id>
+						<configuration>
+							<sourceRamlUri>https://api.yaas.io/hybris/customer/b1/api-console/raml/api/api-specification.raml</sourceRamlUri>
+							<targetFolder>target/generated-sources/api</targetFolder>
+							<basePackage>com.sap.yaastemplates.client.customer</basePackage>
+						</configuration>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+					
 					<execution>
 						<id>DocumentRepository</id>
 						<configuration>

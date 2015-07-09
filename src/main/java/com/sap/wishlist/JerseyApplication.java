@@ -24,7 +24,7 @@ public class JerseyApplication extends ResourceConfig
     {
 	// json support
 	register(JacksonFeature.class);
-
+	
 	// resources
 	register(ApiFeature.class);
 

@@ -28,6 +28,7 @@ This service provides REST endpoints for:
   - Deleting a specific wishlist based on an id
 - Sending an e-mail
 - Storing and deleting files in the media repository
+- Creating and accessing customers
 
 
 Purpose & Benefits
@@ -56,6 +57,7 @@ Dependencies
   - [Document Repository](https://devportal.yaas.io/services/documentrepository/latest/index.html)
   - [Email](https://devportal.yaas.io/services/email/latest/index.html)
   - [Media Repository](https://devportal.yaas.io/services/mediarepository/latest/index.html)
+  - [Customer](https://devportal.yaas.io/services/customer/latest/index.html)
 
 
 How to Build and Test

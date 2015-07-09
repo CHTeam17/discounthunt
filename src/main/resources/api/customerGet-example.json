@@ -1,0 +1,52 @@
+{
+    "customerNumber": "C123456",
+    "title": "Dr.",
+    "firstName": "Max",
+    "middleName": "Simon",
+    "lastName": "Muster",
+    "contactEmail": "noreply@hybristest.com",
+    "contactPhone": "+1 1111 2222 3333",
+    "company": "hybris",
+    "preferredLanguage": "en_US",
+    "preferredCurrency": "USD",
+    "addresses": [
+        {
+            "id": "53426fc4e4b08806bb0d3ecc",
+            "contactName": "Business",
+            "street": "Musterstrasse",
+            "streetNumber": "42",
+            "city": "Munich",
+            "country": "Germany",
+            "isDefault": "true",
+            "tags": [
+                "shipping",
+                "home"
+            ]
+        },
+        {
+            "id": "53442904e4b08806bb0d4243",
+            "contactName": "Business",
+            "street": "Grünwalderstrasse",
+            "streetNumber": "42",
+            "city": "Frankfurt",
+            "country": "Germany",
+            "isDefault": "false",
+            "tags": [
+                "billing"
+            ]
+        }
+    ],
+    "defaultAddress": {
+        "id": "53426fc4e4b08806bb0d3ecc",
+        "contactName": "Business",
+        "street": "Musterstrasse",
+        "streetNumber": "42",
+        "city": "Munich",
+        "country": "Germany",
+        "isDefault": "true",
+        "tags": [
+            "shipping",
+            "home"
+        ]
+    }
+}
