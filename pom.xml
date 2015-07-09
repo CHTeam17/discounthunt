@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.hybris.service-sdk.superpoms</groupId>
 		<artifactId>superpom</artifactId>
-		<version>3.12.0</version>
+		<version>3.13.0</version>
 		<relativePath />
 	</parent>
 
@@ -18,7 +18,7 @@
 	<properties>
 		<!-- hybris projects -->
 		<service-sdk.version>3.12.0</service-sdk.version>
-		<ramler.version>1.0.0</ramler.version>
+		<ramler.version>1.0.1</ramler.version>
 
 		<!-- plugins -->
 		<jetty.plugin.version>9.2.6.v20141205</jetty.plugin.version>
@@ -231,6 +231,7 @@
 							<goal>generate</goal>
 						</goals>
 					</execution>
+					
 				</executions>
 			</plugin>
 		</plugins>
