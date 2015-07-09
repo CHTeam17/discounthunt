@@ -36,7 +36,7 @@ import com.sap.wishlist.email.EmailWelcomeTemplate;
 import com.sap.wishlist.email.TemplateAttributeDefinition;
 import com.sap.wishlist.email.TemplateAttributeValue;
 import com.sap.wishlist.utility.AuthorizationHelper;
-import com.sap.yaastemplates.client.email.EmailServiceClient;
+import com.sap.wishlist.client.email.EmailServiceClient;
 
 /**
  * Resource class containing the custom logic. Place put your logic here!

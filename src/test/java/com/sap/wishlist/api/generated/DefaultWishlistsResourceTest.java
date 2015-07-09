@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.hybris.patterns.traits.YaasAwareTrait;
 import com.sap.wishlist.api.Constants;
 
-public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.generated.AbstractResourceTest
+public final class DefaultWishlistsResourceTest extends AbstractResourceTest
 {
     /**
      * Server side root resource /wishlists, evaluated with some default

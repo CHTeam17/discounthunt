@@ -23,7 +23,7 @@ import org.junit.Test;
 
 import com.sap.wishlist.api.Constants;
 
-public final class DefaultCustomerResourceTest extends com.sap.wishlist.api.generated.AbstractResourceTest
+public final class DefaultCustomerResourceTest extends AbstractResourceTest
 {
     /**
      * Server side root resource /customer, evaluated with some default

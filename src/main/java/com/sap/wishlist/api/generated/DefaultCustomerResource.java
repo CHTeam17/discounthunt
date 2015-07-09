@@ -27,7 +27,7 @@ import com.hybris.authorization.integration.AuthorizedExecutionTemplate;
 import com.sap.wishlist.customer.CustomerIgnoreUnknownProperties;
 import com.sap.wishlist.utility.AuthorizationHelper;
 import com.sap.wishlist.utility.ErrorHandler;
-import com.sap.yaastemplates.client.customer.RestEndpointForSignupLoginAndCustomerProfileManagementClient;
+import com.sap.wishlist.client.customer.RestEndpointForSignupLoginAndCustomerProfileManagementClient;
 
 /**
  * Resource class containing the custom logic. Place put your logic here!

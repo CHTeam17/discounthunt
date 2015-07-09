@@ -217,7 +217,7 @@
 						<configuration>
 							<sourceRamlUri>https://api.yaas.io/hybris/customer/b1/api-console/raml/api/api-specification.raml</sourceRamlUri>
 							<targetFolder>target/generated-sources/api</targetFolder>
-							<basePackage>com.sap.yaastemplates.client.customer</basePackage>
+							<basePackage>com.sap.wishlist.client.customer</basePackage>
 						</configuration>
 						<phase>generate-sources</phase>
 						<goals>
@@ -243,7 +243,7 @@
 						<configuration>
 							<sourceRamlUri>https://api.yaas.io/hybris/email/b1/api-console/raml/api/emailservice.raml</sourceRamlUri>
 							<targetFolder>target/generated-sources/api</targetFolder>
-							<basePackage>com.sap.yaastemplates.client.email</basePackage>
+							<basePackage>com.sap.wishlist.client.email</basePackage>
 						</configuration>
 						<phase>generate-sources</phase>
 						<goals>
@@ -256,7 +256,7 @@
 						<configuration>
 							<sourceRamlUri>https://api.yaas.io/hybris/media-repository/b1/api-console/raml/api/media-repository.raml</sourceRamlUri>
 							<targetFolder>target/generated-sources/api</targetFolder>
-							<basePackage>com.sap.yaastemplates.client.mediaRepository</basePackage>
+							<basePackage>com.sap.wishlist.client.mediaRepository</basePackage>
 						</configuration>
 						<phase>generate-sources</phase>
 						<goals>

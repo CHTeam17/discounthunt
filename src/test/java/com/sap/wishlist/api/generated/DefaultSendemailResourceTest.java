@@ -22,7 +22,7 @@ import org.junit.Test;
 import com.sap.wishlist.api.Constants;
 
 
-public final class DefaultSendemailResourceTest extends com.sap.wishlist.api.generated.AbstractResourceTest
+public final class DefaultSendemailResourceTest extends AbstractResourceTest
 {
 	/**
 	 * Server side root resource /sendemail,

@@ -19,11 +19,6 @@ import java.util.Arrays;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.ForbiddenException;
-import javax.ws.rs.InternalServerErrorException;
-import javax.ws.rs.NotAuthorizedException;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -42,8 +37,8 @@ import com.hybris.authorization.DiagnosticContext;
 import com.hybris.authorization.integration.AuthorizedExecutionCallback;
 import com.hybris.authorization.integration.AuthorizedExecutionTemplate;
 import com.hybris.patterns.schemas.ResourceLocation;
+import com.sap.wishlist.client.mediaRepository.MediaRepositoryClient;
 import com.sap.wishlist.utility.ErrorHandler;
-import com.sap.yaastemplates.client.mediaRepository.MediaRepositoryClient;
 
 /**
  * Resource class containing the custom logic.
@@ -71,7 +66,7 @@ public class DefaultSaplogoResource implements SaplogoResource
 
     public DefaultSaplogoResource() {
 	mediaRepositoryClient = new MediaRepositoryClient(
-		com.sap.yaastemplates.client.mediaRepository.MediaRepositoryClient.DEFAULT_BASE_URI, ClientBuilder
+		com.sap.wishlist.client.mediaRepository.MediaRepositoryClient.DEFAULT_BASE_URI, ClientBuilder
 			.newClient().register(MultiPartFeature.class));
     }
 
