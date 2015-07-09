@@ -42,6 +42,7 @@ import com.hybris.authorization.DiagnosticContext;
 import com.hybris.authorization.integration.AuthorizedExecutionCallback;
 import com.hybris.authorization.integration.AuthorizedExecutionTemplate;
 import com.hybris.patterns.schemas.ResourceLocation;
+import com.sap.wishlist.utility.ErrorHandler;
 import com.sap.yaastemplates.client.mediaRepository.MediaRepositoryClient;
 
 /**
@@ -80,7 +81,7 @@ public class DefaultSaplogoResource implements SaplogoResource
 	try {
 	    is = new FileInputStream(SAP_LOGO_FILE_PATH);
 	} catch (FileNotFoundException e) {
-	   return Response.serverError().entity("Cannot read SAP Logo at path " + SAP_LOGO_FILE_PATH).build();
+	    return Response.serverError().entity("Cannot read SAP Logo at path " + SAP_LOGO_FILE_PATH).build();
 	}
 	// Prepare MultiPart
 	final FormDataMultiPart multiPart = new FormDataMultiPart();
@@ -105,17 +106,7 @@ public class DefaultSaplogoResource implements SaplogoResource
 		});
 
 	if (response.getStatus() != Response.Status.CREATED.getStatusCode()) {
-	    switch (response.getStatus()) {
-		case 400:
-		    throw new BadRequestException();
-		case 401:
-		    throw new NotAuthorizedException(response);
-		case 403:
-		    throw new ForbiddenException();
-		case 404:
-		    throw new NotFoundException();
-
-	    }
+	    ErrorHandler.handleResponse(response);
 	}
 
 	ResourceLocation location = response.readEntity(ResourceLocation.class);
@@ -144,18 +135,7 @@ public class DefaultSaplogoResource implements SaplogoResource
 		    }
 		});
 	if (response.getStatus() != Response.Status.NO_CONTENT.getStatusCode()) {
-	    switch (response.getStatus()) {
-		case 400:
-		    throw new BadRequestException();
-		case 401:
-		    // TODO: Exception for UnAuthorized
-		    throw new InternalServerErrorException();
-		case 403:
-		    throw new ForbiddenException();
-		case 404:
-		    throw new NotFoundException();
-
-	    }
+	    ErrorHandler.handleResponse(response);
 	}
 
 	return Response.noContent().build();

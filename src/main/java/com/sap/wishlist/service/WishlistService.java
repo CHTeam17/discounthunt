@@ -85,7 +85,7 @@ public class WishlistService {
 	    }
 
 	} else {
-	    ErrorHandler.handleResponseStatusCode(response.getStatus());
+	    ErrorHandler.handleResponse(response);
 	}
 
 	return Response.ok().entity(result).build();
@@ -116,7 +116,7 @@ public class WishlistService {
 		});
 
 	if (response.getStatus() != Status.CREATED.getStatusCode()) {
-	    ErrorHandler.handleResponseStatusCode(response.getStatus());
+	    ErrorHandler.handleResponse(response);
 	}
 
 	ResourceLocation location = response.readEntity(ResourceLocation.class);
@@ -145,7 +145,7 @@ public class WishlistService {
 		});
 
 	if (response.getStatus() != Status.OK.getStatusCode()) {
-	    ErrorHandler.handleResponseStatusCode(response.getStatus());
+	    ErrorHandler.handleResponse(response);
 	}
 
 	DocumentWishlistRead documentWishlistRead = response.readEntity(DocumentWishlistRead.class);
@@ -178,7 +178,7 @@ public class WishlistService {
 		});
 
 	if (response.getStatus() != Status.OK.getStatusCode()) {
-	    ErrorHandler.handleResponseStatusCode(response.getStatus());
+	    ErrorHandler.handleResponse(response);
 	}
 
 	return Response.ok().build();
@@ -205,7 +205,7 @@ public class WishlistService {
 		});
 
 	if (response.getStatus() != Status.NO_CONTENT.getStatusCode()) {
-	    ErrorHandler.handleResponseStatusCode(response.getStatus());
+	    ErrorHandler.handleResponse(response);
 	}
 
 	return Response.noContent().build();
