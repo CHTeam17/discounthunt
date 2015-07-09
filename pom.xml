@@ -218,6 +218,19 @@
 							<goal>generate</goal>
 						</goals>
 					</execution>
+					
+					<execution>
+						<id>EMail</id>
+						<configuration>
+							<sourceRamlUri>https://api.yaas.io/hybris/email/b1/api-console/raml/api/emailservice.raml</sourceRamlUri>
+							<targetFolder>target/generated-sources/api</targetFolder>
+							<basePackage>com.sap.yaastemplates.client.email</basePackage>
+						</configuration>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>

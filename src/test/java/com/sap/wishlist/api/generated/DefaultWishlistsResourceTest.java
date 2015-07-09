@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hybris.patterns.traits.YaasAwareTrait;
+import com.sap.wishlist.api.Constants;
 
 public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.generated.AbstractResourceTest
 {
@@ -33,7 +34,6 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
      * value(s).
      */
     private static final String ROOT_RESOURCE_PATH = "/wishlists";
-    private static final String TENANT = "cecwishlist";
     private static final String CLIENT = "test";
     private static Wishlist WISHLIST;
 
@@ -58,7 +58,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 
 	final Response response = target.request()
 		.header(YaasAwareTrait.Headers.CLIENT, CLIENT)
-		.header(YaasAwareTrait.Headers.TENANT, TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
 		.get();
 
 	Assert.assertNotNull("Response must not be null", response);
@@ -91,7 +91,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 
 	final Response response = target.request()
 		.header(YaasAwareTrait.Headers.CLIENT, CLIENT)
-		.header(YaasAwareTrait.Headers.TENANT, TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
 		.get();
 
 	Assert.assertNotNull("Response must not be null", response);
@@ -111,7 +111,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 
 	final Response response = target.request()
 		.header(YaasAwareTrait.Headers.CLIENT, CLIENT)
-		.header(YaasAwareTrait.Headers.TENANT, TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
 		.put(entity);
 
 	Assert.assertNotNull("Response must not be null", response);
@@ -148,7 +148,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 
 	return target.request()
 		.header(YaasAwareTrait.Headers.CLIENT, CLIENT)
-		.header(YaasAwareTrait.Headers.TENANT, TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
 		.post(entity);
     }
 
@@ -157,7 +157,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 
 	return target.request()
 		.header(YaasAwareTrait.Headers.CLIENT, CLIENT)
-		.header(YaasAwareTrait.Headers.TENANT, TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
 		.delete();
     }
 
