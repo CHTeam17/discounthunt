@@ -215,7 +215,7 @@
 					<execution>
 						<id>Customer</id>
 						<configuration>
-							<sourceRamlUri>https://api.yaas.io/hybris/customer/b1/api-console/raml/api/api-specification.raml</sourceRamlUri>
+							<sourceRamlUri>https://api.stage.yaas.io/hybris/customer/b1/api-console/raml/api/api-specification.raml</sourceRamlUri>
 							<targetFolder>target/generated-sources/api</targetFolder>
 							<basePackage>com.sap.wishlist.client.customer</basePackage>
 						</configuration>
@@ -228,7 +228,7 @@
 					<execution>
 						<id>DocumentRepository</id>
 						<configuration>
-							<sourceRamlUri>https://api.yaas.io/hybris/repository/b1/api-console/raml/api/document-repository.raml</sourceRamlUri>
+							<sourceRamlUri>https://api.stage.yaas.io/hybris/repository/b1/api-console/raml/api/document-repository.raml</sourceRamlUri>
 							<targetFolder>target/generated-sources/api</targetFolder>
 							<basePackage>com.sap.wishlist.client.documentrepository</basePackage>
 						</configuration>
@@ -241,7 +241,7 @@
 					<execution>
 						<id>EMail</id>
 						<configuration>
-							<sourceRamlUri>https://api.yaas.io/hybris/email/b1/api-console/raml/api/emailservice.raml</sourceRamlUri>
+							<sourceRamlUri>https://api.stage.yaas.io/hybris/email/b1/api-console/raml/api/emailservice.raml</sourceRamlUri>
 							<targetFolder>target/generated-sources/api</targetFolder>
 							<basePackage>com.sap.wishlist.client.email</basePackage>
 						</configuration>
@@ -254,7 +254,7 @@
 					<execution>
 						<id>MediaRepository</id>
 						<configuration>
-							<sourceRamlUri>https://api.yaas.io/hybris/media-repository/b1/api-console/raml/api/media-repository.raml</sourceRamlUri>
+							<sourceRamlUri>https://api.stage.yaas.io/hybris/media-repository/b1/api-console/raml/api/media-repository.raml</sourceRamlUri>
 							<targetFolder>target/generated-sources/api</targetFolder>
 							<basePackage>com.sap.wishlist.client.mediaRepository</basePackage>
 						</configuration>
