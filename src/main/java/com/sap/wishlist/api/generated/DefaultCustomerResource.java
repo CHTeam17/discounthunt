@@ -24,10 +24,10 @@ import com.hybris.authorization.AuthorizationScope;
 import com.hybris.authorization.DiagnosticContext;
 import com.hybris.authorization.integration.AuthorizedExecutionCallback;
 import com.hybris.authorization.integration.AuthorizedExecutionTemplate;
+import com.sap.wishlist.client.customer.RestEndpointForSignupLoginAndCustomerProfileManagementClient;
 import com.sap.wishlist.customer.CustomerIgnoreUnknownProperties;
 import com.sap.wishlist.utility.AuthorizationHelper;
 import com.sap.wishlist.utility.ErrorHandler;
-import com.sap.wishlist.client.customer.RestEndpointForSignupLoginAndCustomerProfileManagementClient;
 
 /**
  * Resource class containing the custom logic. Place put your logic here!
@@ -56,7 +56,7 @@ public class DefaultCustomerResource implements CustomerResource
     public Response post(final YaasAwareParameters yaasAware, final Customer customer)
     {
 	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(authorizationHelper.getScopes()),
+		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
 		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
@@ -79,7 +79,7 @@ public class DefaultCustomerResource implements CustomerResource
 	    final PostCustomer201Response customerCreated = response.readEntity(PostCustomer201Response.class);
 	    for (final Address address : customer.getAddresses()) {
 		final Response responseAddress = authorizedExecutionTemplate.executeAuthorized(
-			new AuthorizationScope(authorizationHelper.getScopes()),
+			new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
 			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 			new AuthorizedExecutionCallback<Response>()
 			{
@@ -115,7 +115,7 @@ public class DefaultCustomerResource implements CustomerResource
     public Response getByCustomerNumber(final YaasAwareParameters yaasAware, final String customerNumber)
     {
 	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(authorizationHelper.getScopes()),
+		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
 		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{

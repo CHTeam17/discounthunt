@@ -38,6 +38,7 @@ import com.hybris.authorization.integration.AuthorizedExecutionCallback;
 import com.hybris.authorization.integration.AuthorizedExecutionTemplate;
 import com.hybris.patterns.schemas.ResourceLocation;
 import com.sap.wishlist.client.mediaRepository.MediaRepositoryClient;
+import com.sap.wishlist.utility.AuthorizationHelper;
 import com.sap.wishlist.utility.ErrorHandler;
 
 /**
@@ -51,6 +52,9 @@ public class DefaultSaplogoResource implements SaplogoResource
     private javax.ws.rs.core.UriInfo uriInfo;
 
     private MediaRepositoryClient mediaRepositoryClient;
+
+    @Inject
+    private AuthorizationHelper authorizationHelper;
 
     @Inject
     private AuthorizedExecutionTemplate authorizedExecutionTemplate;
@@ -83,7 +87,7 @@ public class DefaultSaplogoResource implements SaplogoResource
 	multiPart.bodyPart(new StreamDataBodyPart("file", is));
 
 	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(new ArrayList<String>(Arrays.asList(this.scopes.split(" ")))),
+		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
 		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
@@ -113,7 +117,7 @@ public class DefaultSaplogoResource implements SaplogoResource
     @Override
     public Response deleteByMediaId(final YaasAwareParameters yaasAware, final String mediaId) {
 	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(new ArrayList<String>(Arrays.asList(this.scopes.split(" ")))),
+		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
 		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{

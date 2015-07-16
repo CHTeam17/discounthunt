@@ -2,7 +2,6 @@ package com.sap.wishlist.utility;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.ForbiddenException;
-import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;

@@ -30,7 +30,7 @@ public final class DefaultCustomerResourceTest extends AbstractResourceTest
      * value(s).
      */
     private static final String ROOT_RESOURCE_PATH = "/customer/";
-    private static final String CUSTOMER_NUMBER = "C3859650497";
+    private static final String CUSTOMER_NUMBER = "C9449023503";
     private static final String APP = "test";
 
     /* get() /customer//customerNumber */

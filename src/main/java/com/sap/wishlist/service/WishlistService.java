@@ -49,7 +49,7 @@ public class WishlistService {
     public Response get(final PagedParameters paged, final YaasAwareParameters yaasAware) {
 	ArrayList<Wishlist> result = null;
 	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(authorizationHelper.getScopes()),
+		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
 		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
@@ -97,7 +97,7 @@ public class WishlistService {
 	documentWishlist.setWishlist(wishlist);
 
 	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(authorizationHelper.getScopes()),
+		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
 		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
@@ -127,7 +127,7 @@ public class WishlistService {
     /* GET //{wishlistId} */
     public Response getByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId) {
 	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(authorizationHelper.getScopes()),
+		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
 		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
@@ -159,7 +159,7 @@ public class WishlistService {
 	documentWishlist.setWishlist(wishlist);
 
 	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(authorizationHelper.getScopes()),
+		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
 		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
@@ -187,7 +187,7 @@ public class WishlistService {
     /* DELETE //{wishlistId} */
     public Response deleteByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId) {
 	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(authorizationHelper.getScopes()),
+		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
 		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		new AuthorizedExecutionCallback<Response>()
 		{
