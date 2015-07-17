@@ -14,6 +14,8 @@ env:
   - secure: EcMbSbBrsT2mh4xN8QYL422uzRLkVPPAiEcxKQWITPj8tU0gsEu60Vg4g+wFF64rCEtASMT2563yKInPvQUfj0ucQTC8eFgJoDBYxW2yNCUqQct0MHljhk67zwS9sziDa70bRHVlQATFv6z6mCoDx29KZKBwjziGqWZMMzp7eko=
   - secure: gkFL5IzvdspBitAmPDFa+JY7I5pZNoffVsHo5uw45uocaVIyfoEsJ04Oe39hqxKLuVwqfLfnFWpS57+2SNfinSmasSlSkXQIa7O8xVaa6a0LjAxxemWUcQ8C1UUN8T4SIiVtmeXY5MlXNOZ58v50fB6eozHQIOTnBtokz4l93jg=
   - secure: J4MIvRG03ZeoZyT4tyOcs/LvLDKWNuHd8ubF3s3Xqg5Nq+nh2P8c0PRnevXpR45pOkEngppSFPj6kEqVzSJigtq72wDQKZCYsoHPCF9G0gfLQWSeM1gE4D8MmeO7tpzdhJMzZeoSEa0qfQkuHYCg8PTD2JrNJhw276X/PFAPAg4=
+  - CF_ORG=sap_cec_prod
+  - CF_APP=Java-Wishlist-v1
 jdk:
 - oraclejdk8
 before_install:
@@ -23,8 +25,10 @@ install:
 - mvn install -DskipTests=true --settings settings.xml -Dhttp.proxyHost=proxy.wdf.sap.corp
   -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.wdf.sap.corp -Dhttps.proxyPort=8080
 script:
+- set -e # Break script section in case tests fail
 - mvn test -B --settings settings.xml -Dmaven.install.skip=true -Dhttp.proxyHost=proxy.wdf.sap.corp
   -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.wdf.sap.corp -Dhttps.proxyPort=8080
+- set +e # Perform upload in its entirety, even if part of it fails 
 - sh upload.sh dev-manifest.yml
 cache:
   directories:

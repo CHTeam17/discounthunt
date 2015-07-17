@@ -6,29 +6,38 @@ API Console
 -----------
 
 You can open the API Console in a separate window by using the following links: 
-- [API Console - Internal](http://wishlist-java.cf3.hybris.com)
-- [API Console - External](https://api.yaas.io/wishlist-java)
+- [API Console - Internal](http://java-wishlist-v1.cf3.hybris.com)
+- [API Console - External](https://api.stage.yaas.io/serviceexamples/javawishlist/v1)
 
 
 Tenant Information
 ------------------
 
-You can use `cecwishlist` as value for `hybris-tenant` (a.k.a. project id) as a sandbox when experimenting with the service.
+You can use `wishlistexamples` as value for `hybris-tenant` (a.k.a. project id) as a sandbox when experimenting with the service.
 
 
 API Overview
 ------------
 
-This service provides REST endpoints for:
-- Interacting with wishlists in a CRUD fashion
-  - Getting a list of all wishlists within a tenant
-  - Creating a new wishlist
-  - Getting a specific wishlist based on an id
-  - Updating a specific wishlist based on an id
-  - Deleting a specific wishlist based on an id
-- Sending an e-mail
-- Storing and deleting files in the media repository
-- Creating and accessing customers
+This service provides REST endpoints for interacting with several YaaS core and commerce services.
+
+### Document Repository
+The endpoint `/wishlists` enables you to:
+- Interact with wishlists in a CRUD fashion
+  - Get a list of all wishlists within a tenant
+  - Create a new wishlist
+  - Get a specific wishlist based on an id
+  - Update a specific wishlist based on an id
+  - Delete a specific wishlist based on an id
+
+### Email Service
+The endpoint `/sendemail` enables you to send an e-mail.
+
+### Media Repository
+The endpoint `/saplogo` uploads the SAP logo to the media repository and allows you to delete it.
+
+### Customer Service
+The endpoint `/customer` enables you to create customers and retrieve customer data.
 
 
 Purpose & Benefits
