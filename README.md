@@ -29,16 +29,23 @@ The endpoint `/wishlists` enables you to:
   - Get a specific wishlist based on an id
   - Update a specific wishlist based on an id
   - Delete a specific wishlist based on an id
+  
+See also [DefaultWishlistsResource.java](src/main/java/com/sap/wishlist/api/generated/DefaultWishlistsResource.java)
 
 ### Email Service
 The endpoint `/sendemail` enables you to send an e-mail.
 
+See also [DefaultSendemailResource.java](src/main/java/com/sap/wishlist/api/generated/DefaultSendemailResource.java)
+
 ### Media Repository
 The endpoint `/saplogo` uploads the SAP logo to the media repository and allows you to delete it.
+
+See also [DefaultSaplogoResource.java](src/main/java/com/sap/wishlist/api/generated/DefaultSaplogoResource.java)
 
 ### Customer Service
 The endpoint `/customer` enables you to create customers and retrieve customer data.
 
+See also [DefaultCustomerResource.java](src/main/java/com/sap/wishlist/api/generated/DefaultCustomerResource.java)
 
 Purpose & Benefits
 ------------------
