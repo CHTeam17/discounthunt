@@ -19,7 +19,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.sap.wishlist.api.Constants;
+import com.sap.wishlist.api.TestConstants;
 
 
 public final class DefaultSendemailResourceTest extends AbstractResourceTest
@@ -37,7 +37,7 @@ public final class DefaultSendemailResourceTest extends AbstractResourceTest
 		final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path("");
 
 		final Response response = target.request()
-			.header("hybris-tenant", Constants.TENANT)
+			.header("hybris-tenant", TestConstants.TENANT)
 			.header("hybris-user", "test@hybristest.com") // mails to domain hybristest.com are ignored by mail service
 			.post(null);
 

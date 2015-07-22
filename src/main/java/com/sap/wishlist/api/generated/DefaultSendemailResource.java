@@ -25,11 +25,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.hybris.authorization.AccessToken;
-import com.hybris.authorization.AuthorizationScope;
-import com.hybris.authorization.DiagnosticContext;
-import com.hybris.authorization.integration.AuthorizedExecutionCallback;
-import com.hybris.authorization.integration.AuthorizedExecutionTemplate;
+import com.sap.cloud.yaas.servicesdk.authorization.AccessToken;
+import com.sap.cloud.yaas.servicesdk.authorization.AuthorizationScope;
+import com.sap.cloud.yaas.servicesdk.authorization.DiagnosticContext;
+import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionCallback;
+import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionTemplate;
 import com.sap.wishlist.client.email.EmailServiceClient;
 import com.sap.wishlist.email.Email;
 import com.sap.wishlist.email.EmailTemplateDefinition;
@@ -45,7 +45,9 @@ public class DefaultSendemailResource implements SendemailResource
     private final String TEMPLATE_WELCOME_CODE = "welcome";
     private final String TEMPLATE_FILE_TYPE_BODY = "body";
     private final String TEMPLATE_FILE_TYPE_SUBJECT = "subject";
-    private final EmailServiceClient emailServiceClient;
+    
+    @Inject
+    private EmailServiceClient emailClient;
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultSendemailResource.class);
 
@@ -54,14 +56,13 @@ public class DefaultSendemailResource implements SendemailResource
 
     @Inject
     private AuthorizedExecutionTemplate authorizedExecutionTemplate;
+    
     @Inject
     private AuthorizationHelper authorizationHelper;
+
     @Value("${YAAS_CLIENT}")
     private String client;
 
-    public DefaultSendemailResource() {
-	emailServiceClient = new EmailServiceClient(EmailServiceClient.DEFAULT_BASE_URI);
-    }
 
     /* POST / */
     @Override
@@ -89,7 +90,7 @@ public class DefaultSendemailResource implements SendemailResource
 		    @Override
 		    public Response execute(final AccessToken token)
 		    {
-			return emailServiceClient.tenantTemplates(yaasAware.getHybrisTenant())
+			return emailClient.tenantTemplates(yaasAware.getHybrisTenant())
 				.preparePost()
 				.withAuthorization(authorizationHelper.buildToken(token))
 				.withPayload(Entity.json(emailTemplateDefinition))
@@ -118,7 +119,7 @@ public class DefaultSendemailResource implements SendemailResource
 		    @Override
 		    public Response execute(final AccessToken token)
 		    {
-			return emailServiceClient.tenantSend(yaasAware.getHybrisTenant())
+			return emailClient.tenantSend(yaasAware.getHybrisTenant())
 				.preparePost()
 				.withAuthorization(authorizationHelper.buildToken(token))
 				.withPayload(Entity.json(eMail))
@@ -195,7 +196,7 @@ public class DefaultSendemailResource implements SendemailResource
 		    @Override
 		    public Response execute(final AccessToken token)
 		    {
-			return emailServiceClient
+			return emailClient
 				.tenantTemplatesClient(yaasAware.getHybrisTenant(), client)
 				.code(template.getCode())
 				.fileType(template.getFileType())

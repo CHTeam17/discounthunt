@@ -1,9 +1,0 @@
----
-applications:
-- name: Java-Wishlist-v1
-  buildpack: java_buildpack
-  instances: 1
-  memory: 1024MB
-  host: java-wishlist-v1
-  domain: cf3.hybris.com
-  path: target/wishlist-1.0-SNAPSHOT.war

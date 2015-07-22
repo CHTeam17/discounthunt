@@ -1,7 +1,7 @@
 /*
  * [y] hybris Platform
  * 
- * Copyright (c) 2000-2014 hybris AG
+ * Copyright (c) 2000-2015 hybris AG
  * All rights reserved.
  * 
  * This software is the confidential and proprietary information of hybris
@@ -16,12 +16,12 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Application;
 
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.validation.ValidationFeature;
-import org.glassfish.jersey.test.JerseyTest;
-import org.glassfish.jersey.test.TestProperties;
 
 public abstract class AbstractResourceTest extends JerseyTest
 {
@@ -33,9 +33,6 @@ public abstract class AbstractResourceTest extends JerseyTest
 	@Override
 	protected final Application configure()
 	{
-		enable(TestProperties.LOG_TRAFFIC);
-		enable(TestProperties.DUMP_ENTITY);
-
 		final ResourceConfig application = configureApplication();
 
 		// needed for json serialization
@@ -49,6 +46,7 @@ public abstract class AbstractResourceTest extends JerseyTest
 
 		// disable bean validation for tests
 		application.property(ServerProperties.BV_FEATURE_DISABLE, "true");
+
 		return application;
 	}
 
@@ -59,6 +57,8 @@ public abstract class AbstractResourceTest extends JerseyTest
 	{
 		// needed for json serialization
 		config.register(JacksonFeature.class);
+
+		config.register(new LoggingFilter(java.util.logging.Logger.getLogger(AbstractResourceTest.class.getName()), false));
 
 		super.configureClient(config);
 	}

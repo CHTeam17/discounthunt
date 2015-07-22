@@ -8,7 +8,7 @@ import javax.annotation.ManagedBean;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import com.hybris.authorization.AccessToken;
+import com.sap.cloud.yaas.servicesdk.authorization.AccessToken;
 
 @ManagedBean
 public class AuthorizationHelper {
@@ -18,7 +18,7 @@ public class AuthorizationHelper {
     public List<String> getScopes() {
 	return new ArrayList<String>(Arrays.asList(this.scopes.split(" ")));
     }
-
+    
     public String buildToken(AccessToken token) {
 	return token.getType() + " " + token.getValue();
     }

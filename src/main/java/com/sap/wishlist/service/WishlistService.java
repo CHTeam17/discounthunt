@@ -16,11 +16,11 @@ import javax.ws.rs.core.UriInfo;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import com.hybris.authorization.AccessToken;
-import com.hybris.authorization.AuthorizationScope;
-import com.hybris.authorization.DiagnosticContext;
-import com.hybris.authorization.integration.AuthorizedExecutionCallback;
-import com.hybris.authorization.integration.AuthorizedExecutionTemplate;
+import com.sap.cloud.yaas.servicesdk.authorization.AccessToken;
+import com.sap.cloud.yaas.servicesdk.authorization.AuthorizationScope;
+import com.sap.cloud.yaas.servicesdk.authorization.DiagnosticContext;
+import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionCallback;
+import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionTemplate;
 import com.sap.wishlist.api.generated.DocumentWishlist;
 import com.sap.wishlist.api.generated.DocumentWishlistRead;
 import com.sap.wishlist.api.generated.PagedParameters;

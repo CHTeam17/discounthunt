@@ -28,9 +28,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.hybris.patterns.schemas.ResourceLocation;
-import com.hybris.patterns.traits.YaasAwareTrait;
-import com.sap.wishlist.api.Constants;
+import com.sap.cloud.yaas.servicesdk.patternsupport.traits.YaasAwareTrait;
+import com.sap.wishlist.api.TestConstants;
 
 public final class DefaultSaplogoResourceTest extends AbstractResourceTest
 {
@@ -66,7 +65,7 @@ public final class DefaultSaplogoResourceTest extends AbstractResourceTest
     private ResourceLocation createSapLogo() {
 	final WebTarget targetPost = getRootTarget(ROOT_RESOURCE_PATH).path("");
 	final Response responsePost = targetPost.request()
-		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, TestConstants.TENANT)
 		.post(null);
 
 	Assert.assertNotNull("Response must not be null", responsePost);
@@ -80,7 +79,7 @@ public final class DefaultSaplogoResourceTest extends AbstractResourceTest
     private void deleteSapLogo(String mediaId) {
 	final WebTarget targetDelete = getRootTarget(ROOT_RESOURCE_PATH).path("/" + mediaId);
 	final Response responseDelete = targetDelete.request()
-		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, TestConstants.TENANT)
 		.delete();
 
 	Assert.assertNotNull("Response must not be null", responseDelete);
