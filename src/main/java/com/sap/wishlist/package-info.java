@@ -1,5 +1,5 @@
 /*
- * Created with [y] hybris Service SDK version 3.3.4.
+ * Created with [y] hybris Service SDK version 4.0.0.
  */
 /**
  * Contains the application config.

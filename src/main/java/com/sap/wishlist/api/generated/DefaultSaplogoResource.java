@@ -14,8 +14,6 @@ package com.sap.wishlist.api.generated;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -31,12 +29,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.hybris.authorization.AccessToken;
-import com.hybris.authorization.AuthorizationScope;
-import com.hybris.authorization.DiagnosticContext;
-import com.hybris.authorization.integration.AuthorizedExecutionCallback;
-import com.hybris.authorization.integration.AuthorizedExecutionTemplate;
-import com.hybris.patterns.schemas.ResourceLocation;
+import com.sap.cloud.yaas.servicesdk.authorization.AccessToken;
+import com.sap.cloud.yaas.servicesdk.authorization.AuthorizationScope;
+import com.sap.cloud.yaas.servicesdk.authorization.DiagnosticContext;
+import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionCallback;
+import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionTemplate;
 import com.sap.wishlist.client.mediaRepository.MediaRepositoryClient;
 import com.sap.wishlist.utility.AuthorizationHelper;
 import com.sap.wishlist.utility.ErrorHandler;

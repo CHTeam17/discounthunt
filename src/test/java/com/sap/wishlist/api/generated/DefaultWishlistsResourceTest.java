@@ -24,8 +24,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.hybris.patterns.traits.YaasAwareTrait;
-import com.sap.wishlist.api.Constants;
+import com.sap.cloud.yaas.servicesdk.patternsupport.traits.YaasAwareTrait;
+import com.sap.wishlist.api.TestConstants;
 
 public final class DefaultWishlistsResourceTest extends AbstractResourceTest
 {
@@ -58,7 +58,7 @@ public final class DefaultWishlistsResourceTest extends AbstractResourceTest
 
 	final Response response = target.request()
 		.header(YaasAwareTrait.Headers.CLIENT, CLIENT)
-		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, TestConstants.TENANT)
 		.get();
 
 	Assert.assertNotNull("Response must not be null", response);
@@ -91,7 +91,7 @@ public final class DefaultWishlistsResourceTest extends AbstractResourceTest
 
 	final Response response = target.request()
 		.header(YaasAwareTrait.Headers.CLIENT, CLIENT)
-		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, TestConstants.TENANT)
 		.get();
 
 	Assert.assertNotNull("Response must not be null", response);
@@ -111,7 +111,7 @@ public final class DefaultWishlistsResourceTest extends AbstractResourceTest
 
 	final Response response = target.request()
 		.header(YaasAwareTrait.Headers.CLIENT, CLIENT)
-		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, TestConstants.TENANT)
 		.put(entity);
 
 	Assert.assertNotNull("Response must not be null", response);
@@ -148,7 +148,7 @@ public final class DefaultWishlistsResourceTest extends AbstractResourceTest
 
 	return target.request()
 		.header(YaasAwareTrait.Headers.CLIENT, CLIENT)
-		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, TestConstants.TENANT)
 		.post(entity);
     }
 
@@ -157,7 +157,7 @@ public final class DefaultWishlistsResourceTest extends AbstractResourceTest
 
 	return target.request()
 		.header(YaasAwareTrait.Headers.CLIENT, CLIENT)
-		.header(YaasAwareTrait.Headers.TENANT, Constants.TENANT)
+		.header(YaasAwareTrait.Headers.TENANT, TestConstants.TENANT)
 		.delete();
     }
 

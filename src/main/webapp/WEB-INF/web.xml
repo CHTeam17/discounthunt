@@ -5,8 +5,8 @@
 			version="3.0"
 			metadata-complete="true">
 
-	<display-name>wishlist</display-name>
-	<description>wishlist</description>
+	<display-name>java-jersey-wishlist</display-name>
+	<description>java-jersey-wishlist</description>
 
 	<!-- Spring configuration -->
 	<listener>
@@ -19,9 +19,21 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:/META-INF/wishlist-spring.xml</param-value>
+		<param-value>classpath:/META-INF/java-jersey-wishlist-spring.xml</param-value>
 	</context-param>
 
+	<!-- Service SDK libraries -->
+	<filter>
+		<filter-name>loggingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<async-supported>true</async-supported> <!-- filter supports asynchronous processing -->
+	</filter>
+
+	<filter-mapping>
+		<filter-name>loggingFilter</filter-name>
+		<servlet-name>jerseyServlet</servlet-name>
+	</filter-mapping>
+	
 	<!-- To enable CORS support in your application -->
 	<filter>
 		<filter-name>CORS</filter-name>

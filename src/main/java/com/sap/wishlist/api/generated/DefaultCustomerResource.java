@@ -19,11 +19,11 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.hybris.authorization.AccessToken;
-import com.hybris.authorization.AuthorizationScope;
-import com.hybris.authorization.DiagnosticContext;
-import com.hybris.authorization.integration.AuthorizedExecutionCallback;
-import com.hybris.authorization.integration.AuthorizedExecutionTemplate;
+import com.sap.cloud.yaas.servicesdk.authorization.AccessToken;
+import com.sap.cloud.yaas.servicesdk.authorization.AuthorizationScope;
+import com.sap.cloud.yaas.servicesdk.authorization.DiagnosticContext;
+import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionCallback;
+import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionTemplate;
 import com.sap.wishlist.client.customer.RestEndpointForSignupLoginAndCustomerProfileManagementClient;
 import com.sap.wishlist.customer.CustomerIgnoreUnknownProperties;
 import com.sap.wishlist.utility.AuthorizationHelper;
@@ -39,8 +39,8 @@ public class DefaultCustomerResource implements CustomerResource
     @javax.ws.rs.core.Context
     private javax.ws.rs.core.UriInfo uriInfo;
 
-    private RestEndpointForSignupLoginAndCustomerProfileManagementClient customerClient = new RestEndpointForSignupLoginAndCustomerProfileManagementClient(
-	    RestEndpointForSignupLoginAndCustomerProfileManagementClient.DEFAULT_BASE_URI);;
+    @Inject
+    private RestEndpointForSignupLoginAndCustomerProfileManagementClient customerClient;
 
     @Inject
     private AuthorizedExecutionTemplate authorizedExecutionTemplate;

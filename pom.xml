@@ -4,21 +4,20 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.hybris.service-sdk.superpoms</groupId>
-		<artifactId>superpom</artifactId>
-		<version>3.13.0</version>
+		<groupId>com.sap.cloud.yaas.service-sdk</groupId>
+		<artifactId>service-sdk-superpom</artifactId>
+		<version>4.0.0</version>
 		<relativePath />
 	</parent>
 
-	<groupId>com.sap</groupId>
-	<artifactId>wishlist</artifactId>
+	<groupId>com.sap.cloud.yaas.service-sdk.example</groupId>
+	<artifactId>java-jersey-wishlist</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<properties>
 		<!-- hybris projects -->
-		<service-sdk.version>3.12.0</service-sdk.version>
-		<ramler.version>1.0.1</ramler.version>
+		<service-sdk.version>4.0.0</service-sdk.version>
 
 		<!-- plugins -->
 		<jetty.plugin.version>9.2.6.v20141205</jetty.plugin.version>
@@ -26,6 +25,7 @@
 		<!-- libraries -->
 		<jaxrs.version>2.0.1</jaxrs.version>
 		<jersey.version>2.14</jersey.version>
+		<jackson.version>2.4.4</jackson.version>
 		<javax.servlet.version>3.1.0</javax.servlet.version>
 		<spring.version>4.1.4.RELEASE</spring.version>
 		<cors.filter.version>2.2.1</cors.filter.version>
@@ -36,16 +36,15 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.hybris.service-sdk.libraries</groupId>
-			<artifactId>libraries</artifactId>
+			<groupId>com.sap.cloud.yaas.service-sdk</groupId>
+			<artifactId>service-sdk-libraries</artifactId>
 			<version>${service-sdk.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.hybris.service-sdk.libraries</groupId>
-			<artifactId>authorization</artifactId>
+			<groupId>com.sap.cloud.yaas.service-sdk</groupId>
+			<artifactId>service-sdk-authorization</artifactId>
 			<version>${service-sdk.version}</version>
 		</dependency>
-
 		<!-- Jersey Dependencies -->
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
@@ -131,18 +130,6 @@
 			<version>${javax.servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
-		<!-- Rest Template -->
-		<dependency>
-	        <groupId>org.springframework.security</groupId>
-	        <artifactId>spring-security-core</artifactId>
-	        <version>3.2.5.RELEASE</version>
-	    </dependency>
-	    <dependency>
-	        <groupId>org.springframework.security.oauth</groupId>
-	        <artifactId>spring-security-oauth2</artifactId>
-	        <version>2.0.6.RELEASE</version>
-	    </dependency> 
 
 		<!-- testing -->
 		<dependency>
@@ -157,12 +144,6 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>1.9.5</version>
-			<scope>test</scope>
-		</dependency>
 
 		<!-- CORS support -->
 		<dependency>
@@ -170,27 +151,74 @@
 			<artifactId>cors-filter</artifactId>
 			<version>${cors.filter.version}</version>
 		</dependency>
-		
-		<!-- RAMLer (generated REST client) -->
-		<dependency>
-			<groupId>com.hybris.ramler</groupId>
-			<artifactId>ramler-support</artifactId>
-			<version>${ramler.version}</version>
-		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>java-jersey-wishlist</finalName>
 		<plugins>
+        
+            <plugin>
+                <groupId>com.sap.cloud.yaas.service-sdk</groupId>
+                <artifactId>service-sdk-generator-maven-plugin</artifactId>
+                <version>${service-sdk.version}</version>
+                <executions>
+                    
+                    <execution>
+                        <id>Customer</id>
+                        <goals>
+                            <goal>generate-client</goal>
+                        </goals>
+                        <configuration>
+                            <sourceRamlUri>https://api.stage.yaas.io/hybris/customer/b1/api-console/raml/api/api-specification.raml</sourceRamlUri>
+                            <basePackage>com.sap.wishlist.client.customer</basePackage>
+                        </configuration>
+                    </execution>
+                    
+                    <execution>
+                        <id>DocumentRepository</id>
+                        <goals>
+                            <goal>generate-client</goal>
+                        </goals>
+                        <configuration>
+                            <sourceRamlUri>https://api.stage.yaas.io/hybris/repository/b1/api-console/raml/api/document-repository.raml</sourceRamlUri>
+                            <basePackage>com.sap.wishlist.client.documentrepository</basePackage>
+                        </configuration>
+                    </execution>
+                    
+                    <execution>
+                        <id>EMail</id>
+                        <goals>
+                            <goal>generate-client</goal>
+                        </goals>
+                        <configuration>
+                            <sourceRamlUri>https://api.stage.yaas.io/hybris/email/b1/api-console/raml/api/emailservice.raml</sourceRamlUri>
+                            <basePackage>com.sap.wishlist.client.email</basePackage>
+                        </configuration>
+                    </execution>
+                    
+                    <execution>
+                        <id>MediaRepository</id>
+                        <goals>
+                            <goal>generate-client</goal>
+                        </goals>
+                        <configuration>
+                            <sourceRamlUri>https://api.stage.yaas.io/hybris/media-repository/b1/api-console/raml/api/media-repository.raml</sourceRamlUri>
+                            <basePackage>com.sap.wishlist.client.mediaRepository</basePackage>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
 			<!-- Plugin required to build API models and resources. This dependency 
 				should not be removed. -->
 			<plugin>
-				<groupId>com.hybris.service-sdk.plugins</groupId>
-				<artifactId>apigenerator-maven-plugin</artifactId>
+				<groupId>com.sap.cloud.yaas.service-sdk</groupId>
+				<artifactId>service-sdk-generator-maven-plugin</artifactId>
 				<version>${service-sdk.version}</version>
 				<executions>
 					<execution>
 						<goals>
-							<goal>generate</goal>
+							<goal>generate-service</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -206,66 +234,8 @@
 					</webApp>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>com.hybris.ramler</groupId>
-				<artifactId>ramler-maven-plugin</artifactId>
-				<version>${ramler.version}</version>
-				<executions>
-				
-					<execution>
-						<id>Customer</id>
-						<configuration>
-							<sourceRamlUri>https://api.stage.yaas.io/hybris/customer/b1/api-console/raml/api/api-specification.raml</sourceRamlUri>
-							<targetFolder>target/generated-sources/api</targetFolder>
-							<basePackage>com.sap.wishlist.client.customer</basePackage>
-						</configuration>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-					
-					<execution>
-						<id>DocumentRepository</id>
-						<configuration>
-							<sourceRamlUri>https://api.stage.yaas.io/hybris/repository/b1/api-console/raml/api/document-repository.raml</sourceRamlUri>
-							<targetFolder>target/generated-sources/api</targetFolder>
-							<basePackage>com.sap.wishlist.client.documentrepository</basePackage>
-						</configuration>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-					
-					<execution>
-						<id>EMail</id>
-						<configuration>
-							<sourceRamlUri>https://api.stage.yaas.io/hybris/email/b1/api-console/raml/api/emailservice.raml</sourceRamlUri>
-							<targetFolder>target/generated-sources/api</targetFolder>
-							<basePackage>com.sap.wishlist.client.email</basePackage>
-						</configuration>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-					
-					<execution>
-						<id>MediaRepository</id>
-						<configuration>
-							<sourceRamlUri>https://api.stage.yaas.io/hybris/media-repository/b1/api-console/raml/api/media-repository.raml</sourceRamlUri>
-							<targetFolder>target/generated-sources/api</targetFolder>
-							<basePackage>com.sap.wishlist.client.mediaRepository</basePackage>
-						</configuration>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-					
-				</executions>
-			</plugin>
+
+
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -280,72 +250,24 @@
 							<pluginExecutions>
 								<pluginExecution>
 									<pluginExecutionFilter>
-										<groupId>com.hybris.service-sdk.plugins</groupId>
-										<artifactId>apigenerator-maven-plugin</artifactId>
+										<groupId>com.sap.cloud.yaas.service-sdk</groupId>
+										<artifactId>service-sdk-generator-maven-plugin</artifactId>
 										<versionRange>[${service-sdk.version},)</versionRange>
 										<goals>
-											<goal>generate</goal>
+											<goal>generate-service</goal>
+											<goal>generate-client</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
 										<ignore />
 									</action>
 								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-	                                    <groupId>com.hybris.ramler</groupId>
-	                                    <artifactId>ramler-maven-plugin</artifactId>
-	                                    <versionRange>${ramler.version}</versionRange>
-	                                    <goals>
-	                                        <goal>generate</goal>
-	                                    </goals>
-	                                </pluginExecutionFilter>
-	                                <action>
-										<ignore />
-									</action>
-                                </pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
-				<!-- For Code Coverage -->
-				<plugin>
-					<groupId>org.jacoco</groupId>
-					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>0.7.2.201409121644</version>
-					<configuration>
-						<includes>
-							<include>com.sap.*</include>
-						</includes>
-					</configuration>
-					<executions>
-						<execution>
-							<id>prepare-unit-test-agent</id>
-							<goals>
-								<goal>prepare-agent</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>generate-unit-test-report</id>
-							<goals>
-								<goal>report</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>prepare-integration-test-agent</id>
-							<goals>
-								<goal>prepare-agent-integration</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>generate-integration-test-report</id>
-							<goals>
-								<goal>report-integration</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
+
 </project>

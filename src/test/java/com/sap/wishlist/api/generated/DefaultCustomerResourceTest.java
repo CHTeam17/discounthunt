@@ -21,7 +21,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.sap.wishlist.api.Constants;
+import com.sap.wishlist.api.TestConstants;
 
 public final class DefaultCustomerResourceTest extends AbstractResourceTest
 {
@@ -31,14 +31,13 @@ public final class DefaultCustomerResourceTest extends AbstractResourceTest
      */
     private static final String ROOT_RESOURCE_PATH = "/customer/";
     private static final String CUSTOMER_NUMBER = "C9449023503";
-    private static final String APP = "test";
 
     /* get() /customer//customerNumber */
     @Test
     public void testGetByCustomerNumber()
     {
 	MultivaluedMap<String, Object> headers = new MultivaluedHashMap<String, Object>();
-	headers.add("hybris-tenant", Constants.TENANT);
+	headers.add("hybris-tenant", TestConstants.TENANT);
 
 	final WebTarget target = getRootTarget(ROOT_RESOURCE_PATH).path(CUSTOMER_NUMBER);
 	final Response response = target.request().headers(headers).get();
