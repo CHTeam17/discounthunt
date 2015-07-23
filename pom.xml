@@ -10,7 +10,7 @@
 		<relativePath />
 	</parent>
 
-	<groupId>com.hybris.service-sdk.example</groupId>
+	<groupId>com.sap.cloud.yaas.service-sdk.example</groupId>
 	<artifactId>java-jersey-wishlist</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>

@@ -20,6 +20,6 @@ applications:
   env:
     # used in logging format
     ENV_NAME: prod
-    TEAM_NAME: team-commerce
+    TEAM_NAME: cecpe
     APP_NAME: java-jersey-wishlist
     APP_VERSION: 1.0-SNAPSHOT
