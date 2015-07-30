@@ -2,14 +2,14 @@ package com.sap.wishlist.email;
 
 import java.io.InputStream;
 
-public class EmailWelcomeTemplate
+public class EmailTemplate
 {
     private String code;
     private String owner;
     private String fileType;
     private InputStream dataStream;
 
-    private EmailWelcomeTemplate(Builder builder) {
+    private EmailTemplate(Builder builder) {
 	this.dataStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(builder.filePath);
 	this.code = builder.code;
 	this.owner = builder.owner;
@@ -78,8 +78,8 @@ public class EmailWelcomeTemplate
 	    return this;
 	}
 
-	public EmailWelcomeTemplate build() {
-	    return new EmailWelcomeTemplate(this);
+	public EmailTemplate build() {
+	    return new EmailTemplate(this);
 	}
 
     }
