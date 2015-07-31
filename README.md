@@ -37,6 +37,21 @@ The endpoint `/wishlists/{wishlistId}/media` enables you to:
   
 See also [DefaultWishlistsResource.java](src/main/java/com/sap/wishlist/api/generated/DefaultWishlistsResource.java)
 
+### Email Service
+Mail delivery happens when a wishlist is created. To get more details have look after the post message to the document repository
+
+See also [WishlistService.java](src/main/java/com/sap/wishlist/service/WishlistService.java)
+
+### Media Repository
+The endpoint /media enables you to upload files for the wishlist.
+
+See also [WishlistMediaService.java](src/main/java/com/sap/wishlist/service/WishlistMediaService.java)
+
+### Customer Service
+When a wishlist is being created then is checking if the owner exists as customer. You can find the detail in the post message as first step.
+
+See also [WishlistService.java](src/main/java/com/sap/wishlist/service/WishlistService.java)
+
 Purpose & Benefits
 ------------------
 
@@ -68,6 +83,7 @@ Dependencies
 
 How to Build and Test
 ---------------------
+First you need to create a customer at you tenant and change the [customerid](src/test/java/com/sap/wishlist/api/TestConstants.java)   
 
 Use `mvn clean install` to build the service and run the tests.
 
