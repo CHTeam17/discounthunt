@@ -29,6 +29,7 @@ The endpoint `/wishlists` enables you to:
   - Get a specific wishlist based on an id
   - Update a specific wishlist based on an id
   - Delete a specific wishlist based on an id
+  
 The endpoint `/wishlists/{wishlistId}/media` enables you to:
   - Get a list of all media for the wishlist
   - Create a new media
