@@ -40,7 +40,7 @@ resourceTypes:
           application/json:
             example: !include wishlists-example.json
   post:
-    description: Creates a new wishlist
+    description: Checks if the owner exists as a customer in the system, creates a new wishlist, and sends an e-mail to the customer
     body:
       application/json:
         example: !include wishlist-example.json
