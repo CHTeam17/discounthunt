@@ -30,27 +30,22 @@ The endpoint `/wishlists` enables you to:
   - Update a specific wishlist based on an id
   - Delete a specific wishlist based on an id
   
-The endpoint `/wishlists/{wishlistId}/media` enables you to:
-  - Get a list of all media for the wishlist
-  - Create a new media
-  - Delete a specific media based on an id
-  
-See also [DefaultWishlistsResource.java](src/main/java/com/sap/wishlist/api/generated/DefaultWishlistsResource.java)
+See also [WishlistService.java](src/main/java/com/sap/wishlist/service/WishlistService.java).
 
 ### Email Service
-Mail delivery happens when a wishlist is created. To get more details have look after the post message to the document repository
-
-See also [WishlistService.java](src/main/java/com/sap/wishlist/service/WishlistService.java)
+A mail is sent to the wishlist owner when a wishlist is created. For more details, have a look at method `sendMail` in [WishlistService.java](src/main/java/com/sap/wishlist/service/WishlistService.java).
 
 ### Media Repository
-The endpoint /media enables you to upload files for the wishlist.
+The endpoint `/wishlists/{wishlistId}/media` enables you to:
+  - Get a list of all media for the wishlist
+  - Create a new medium
+  - Delete a specific medium based on an id
 
 See also [WishlistMediaService.java](src/main/java/com/sap/wishlist/service/WishlistMediaService.java)
 
 ### Customer Service
-When a wishlist is being created then is checking if the owner exists as customer. You can find the detail in the post message as first step.
-
-See also [WishlistService.java](src/main/java/com/sap/wishlist/service/WishlistService.java)
+When a wishlist is being created, then the implementation checks if its owner exists as customer. 
+You can find the details at the beginning of the `post` method in [WishlistService.java](src/main/java/com/sap/wishlist/service/WishlistService.java).
 
 Purpose & Benefits
 ------------------
@@ -62,12 +57,6 @@ Showcase how a service can be written using Java. Demonstrate the integration wi
 - Consumption of YaaS services
 - Deployment to CloudFoundry
 - Testing
-
-
-Prerequisite
-------------
-
-The corresponding API product has to be scoped within your tenant.
 
 
 Dependencies
@@ -83,7 +72,10 @@ Dependencies
 
 How to Build and Test
 ---------------------
-First you need to create a customer at you tenant and change the [customerid](src/test/java/com/sap/wishlist/api/TestConstants.java)   
+
+In the Builder, you need a project containing a subscription to the package "YaaS Service Examples" from the team "serviceexamples". Alternatively, you can use our sandbox test tenant `wishlistexamples`.
+
+You need to create a customer in your tenant and store it as `CUSTOMER`in [TestConstants.java](src/test/java/com/sap/wishlist/api/TestConstants.java).
 
 Use `mvn clean install` to build the service and run the tests.
 
