@@ -14,11 +14,16 @@ package com.sap.wishlist.api.generated;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -111,6 +116,23 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 		response.getStatus());
     }
 
+    /* post(entity) /wishlists */
+    @Test
+    public void testPostWithWishlistOwnerNotExist()
+    {
+	Wishlist wishlist = new Wishlist();
+	wishlist.setId(UUID.randomUUID().toString());
+	wishlist.setOwner("Test");
+	instanceList.add(wishlist.getId());
+
+	final Response response = createWishlist(wishlist);
+
+	Assert.assertNotNull("Response must not be null", response);
+	Assert.assertEquals("Response response code should 409",
+		Status.CONFLICT.getStatusCode(),
+		response.getStatus());
+    }
+
     /* get() /wishlists/wishlistId */
     @Test
     public void testGetByWishlistId()
@@ -176,7 +198,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 
     /* get() /wishlists/wishlistId/media */
     @Test
-    public void testGetByWishlistIdMedia() throws FileNotFoundException
+    public void testGetByWishlistIdMedia() throws MalformedURLException, NoSuchAlgorithmException, IOException
     {
 	Response response = createWishlistMedia();
 	String location = response.getHeaderString("location").substring(
@@ -192,6 +214,17 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 	Assert.assertNotNull("Response must not be null", responseGet);
 	Assert.assertEquals("Response does not have expected response code", Status.OK.getStatusCode(),
 		responseGet.getStatus());
+
+	WishlistMedia[] wishlistMedias = responseGet.readEntity(WishlistMedia[].class);
+	String actMD5 = null;
+	for (WishlistMedia wishlistMedia : wishlistMedias) {
+	    if (location.equals(wishlistMedia.getId())) {
+		actMD5 = computeMD5ChecksumForURL(new URL(wishlistMedia.getUri().toString()));
+	    }
+	}
+
+	String expMD5 = computeMD5ChecksumForFile("src/test/resources/800x600.png");
+	Assert.assertEquals("File on media repository is different from file sent", expMD5, actMD5);
     }
 
     /* delete() /wishlists/wishlistId/media/mediaId */
@@ -233,8 +266,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
     }
 
     private Response createWishlistMedia() throws FileNotFoundException {
-	File file = new File("src/test/resources/800x600.png");
-	InputStream is = new FileInputStream(file);
+	InputStream is = new FileInputStream("src/test/resources/800x600.png");
 
 	URI requestUri = URI.create(REQUEST_URI + "/" + WISHLIST.getId() + "/media");
 
@@ -265,5 +297,37 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 	final ResourceConfig application = new ResourceConfig();
 	application.register(DefaultWishlistsResource.class);
 	return application;
+    }
+
+    public static String computeMD5ChecksumForFile(String filename) throws NoSuchAlgorithmException, IOException {
+	InputStream inputStream = new FileInputStream(filename);
+	return computeMD5ChecksumForInputStream(inputStream);
+    }
+
+    public static String computeMD5ChecksumForURL(URL input) throws MalformedURLException, IOException,
+	    NoSuchAlgorithmException {
+	InputStream inputStream = input.openStream();
+	return computeMD5ChecksumForInputStream(inputStream);
+    }
+
+    private static String computeMD5ChecksumForInputStream(InputStream inputStream) throws NoSuchAlgorithmException,
+	    IOException {
+	MessageDigest md = MessageDigest.getInstance("MD5");
+
+	try {
+	    InputStream digestInputStream = new DigestInputStream(inputStream, md);
+	    while (digestInputStream.read() > 0) {
+		;
+	    }
+	} finally {
+	    inputStream.close();
+	}
+	byte[] digest = md.digest();
+	StringBuffer sb = new StringBuffer();
+
+	for (int i = 0; i < digest.length; i++) {
+	    sb.append(Integer.toString((digest[i] & 0xff) + 0x100, 16).substring(1));
+	}
+	return sb.toString();
     }
 }

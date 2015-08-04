@@ -156,18 +156,28 @@ public class WishlistService {
 		    });
 
 	    if (response.getStatus() != Status.CREATED.getStatusCode()) {
-		ErrorHandler.handleResponse(response);
+		if (response.getStatus() == Status.CONFLICT.getStatusCode()) {
+		    Error err = new Error();
+		    err.setStatus(409);
+		    err.setMessage("Duplicate ID. Please provide another ID for the wishlist.");
+		    return Response.status(Status.CONFLICT.getStatusCode()).entity(err)
+			    .type(MediaType.APPLICATION_JSON)
+			    .build();
+		} else {
+		    ErrorHandler.handleResponse(response);
+		    return null;
+		}
+	    } else {
+		sendMail(yaasAware, wishlist, customer.getContactEmail());
+		ResourceLocation location = response.readEntity(ResourceLocation.class);
+		URI createdLocation = uriInfo.getRequestUriBuilder().path("/" + location.getId()).build();
+		return Response.created(createdLocation).build();
 	    }
-
-	    sendMail(yaasAware, wishlist, customer.getContactEmail());
-	    ResourceLocation location = response.readEntity(ResourceLocation.class);
-	    URI createdLocation = uriInfo.getRequestUriBuilder().path("/" + location.getId()).build();
-	    return Response.created(createdLocation).build();
 	} else {
 	    Error err = new Error();
-	    err.setStatus(400);
+	    err.setStatus(409);
 	    err.setMessage("Owner does not exist");
-	    return Response.status(Status.BAD_REQUEST.getStatusCode()).entity(err).type(MediaType.APPLICATION_JSON)
+	    return Response.status(Status.CONFLICT.getStatusCode()).entity(err).type(MediaType.APPLICATION_JSON)
 		    .build();
 	}
     }
