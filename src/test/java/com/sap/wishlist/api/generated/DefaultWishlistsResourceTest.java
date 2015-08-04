@@ -119,7 +119,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 
     /* post(entity) /wishlists */
     @Test
-    public void testPostWithWishlistOwnerNotExist()
+    public void testPostWithInvalidWishlistOwner()
     {
 	Wishlist wishlist = new Wishlist();
 	wishlist.setId(UUID.randomUUID().toString());
@@ -129,8 +129,8 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 	final Response response = createWishlist(wishlist);
 
 	Assert.assertNotNull("Response must not be null", response);
-	Assert.assertEquals("Response response code should 409",
-		Status.CONFLICT.getStatusCode(),
+	Assert.assertEquals("Should return bad request when wishlist owner does not exist",
+		Status.BAD_REQUEST.getStatusCode(),
 		response.getStatus());
     }
 

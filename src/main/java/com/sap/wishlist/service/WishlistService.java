@@ -158,7 +158,7 @@ public class WishlistService {
 	    if (response.getStatus() != Status.CREATED.getStatusCode()) {
 		if (response.getStatus() == Status.CONFLICT.getStatusCode()) {
 		    Error err = new Error();
-		    err.setStatus(409);
+		    err.setStatus(Status.CONFLICT.getStatusCode());
 		    err.setMessage("Duplicate ID. Please provide another ID for the wishlist.");
 		    return Response.status(Status.CONFLICT.getStatusCode()).entity(err)
 			    .type(MediaType.APPLICATION_JSON)
@@ -175,9 +175,9 @@ public class WishlistService {
 	    }
 	} else {
 	    Error err = new Error();
-	    err.setStatus(409);
+	    err.setStatus(Status.BAD_REQUEST.getStatusCode());
 	    err.setMessage("Owner does not exist");
-	    return Response.status(Status.CONFLICT.getStatusCode()).entity(err).type(MediaType.APPLICATION_JSON)
+	    return Response.status(Status.BAD_REQUEST.getStatusCode()).entity(err).type(MediaType.APPLICATION_JSON)
 		    .build();
 	}
     }
