@@ -42,13 +42,11 @@
 														<td width="440" align="left" valign="top" style="padding: 0 40px; color: #FFF">
 															<br/>
 															<h1 style="font-size: 30px; font-weight: bold; margin: 0;">
-																Mail for You!
+																Wishlist Created: $body.title
 															</h1>
 															<br/>
 															<br/>
-															<p style="font-size: 13px; margin: 0;">Welcome!:</p>
-															<br/>
-															<p style="font-size: 13px; margin: 0;">This is an e-mail sent to: $body.eMail</p>
+															<p style="font-size: 13px; margin: 0;">$body.description</p>
 															<br/>
 														</td>
 													</tr>

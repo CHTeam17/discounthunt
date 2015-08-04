@@ -30,22 +30,22 @@ The endpoint `/wishlists` enables you to:
   - Update a specific wishlist based on an id
   - Delete a specific wishlist based on an id
   
-See also [DefaultWishlistsResource.java](src/main/java/com/sap/wishlist/api/generated/DefaultWishlistsResource.java)
+See also [WishlistService.java](src/main/java/com/sap/wishlist/service/WishlistService.java).
 
 ### Email Service
-The endpoint `/sendemail` enables you to send an e-mail.
-
-See also [DefaultSendemailResource.java](src/main/java/com/sap/wishlist/api/generated/DefaultSendemailResource.java)
+A mail is sent to the wishlist owner when a wishlist is created. For more details, have a look at method `sendMail` in [WishlistService.java](src/main/java/com/sap/wishlist/service/WishlistService.java).
 
 ### Media Repository
-The endpoint `/saplogo` uploads the SAP logo to the media repository and allows you to delete it.
+The endpoint `/wishlists/{wishlistId}/media` enables you to:
+  - Get a list of all media for the wishlist
+  - Create a new medium
+  - Delete a specific medium based on an id
 
-See also [DefaultSaplogoResource.java](src/main/java/com/sap/wishlist/api/generated/DefaultSaplogoResource.java)
+See also [WishlistMediaService.java](src/main/java/com/sap/wishlist/service/WishlistMediaService.java)
 
 ### Customer Service
-The endpoint `/customer` enables you to create customers and retrieve customer data.
-
-See also [DefaultCustomerResource.java](src/main/java/com/sap/wishlist/api/generated/DefaultCustomerResource.java)
+When a wishlist is being created, then the implementation checks if its owner exists as customer. 
+You can find the details at the beginning of the `post` method in [WishlistService.java](src/main/java/com/sap/wishlist/service/WishlistService.java).
 
 Purpose & Benefits
 ------------------
@@ -57,12 +57,6 @@ Showcase how a service can be written using Java. Demonstrate the integration wi
 - Consumption of YaaS services
 - Deployment to CloudFoundry
 - Testing
-
-
-Prerequisite
-------------
-
-The corresponding API product has to be scoped within your tenant.
 
 
 Dependencies
@@ -78,6 +72,10 @@ Dependencies
 
 How to Build and Test
 ---------------------
+
+In the Builder, you need a project containing a subscription to the package "YaaS Service Examples" from the team "serviceexamples". Alternatively, you can use our sandbox test tenant `wishlistexamples`.
+
+You need to create a customer in your tenant and store it as `CUSTOMER`in [TestConstants.java](src/test/java/com/sap/wishlist/api/TestConstants.java).
 
 Use `mvn clean install` to build the service and run the tests.
 
