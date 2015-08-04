@@ -50,12 +50,13 @@ import com.sap.wishlist.service.WishlistMediaService;
 public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.generated.AbstractResourceTest
 {
     /**
-     * Server side root resource /wishlists, evaluated with some default
-     * value(s).
+     * Server side root resource /wishlists 
      */
     private static final String ROOT_RESOURCE_PATH = "/wishlists";
     private static final String REQUEST_URI = "https://local/wishlists";
-    private static final String CLIENT = "test";
+    private static final String CLIENT = "test";    
+    private static final String TEST_FILE_FOR_UPLOAD = "src/test/resources/800x600.png";
+
     private static Wishlist WISHLIST;
 
     private ArrayList<String> instanceList = new ArrayList<String>();
@@ -223,7 +224,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 	    }
 	}
 
-	String expMD5 = computeMD5ChecksumForFile("src/test/resources/800x600.png");
+	String expMD5 = computeMD5ChecksumForFile(TEST_FILE_FOR_UPLOAD);
 	Assert.assertEquals("File on media repository is different from file sent", expMD5, actMD5);
     }
 
@@ -266,7 +267,7 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
     }
 
     private Response createWishlistMedia() throws FileNotFoundException {
-	InputStream is = new FileInputStream("src/test/resources/800x600.png");
+	InputStream is = new FileInputStream(TEST_FILE_FOR_UPLOAD);
 
 	URI requestUri = URI.create(REQUEST_URI + "/" + WISHLIST.getId() + "/media");
 
