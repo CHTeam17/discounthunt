@@ -50,11 +50,11 @@ import com.sap.wishlist.service.WishlistMediaService;
 public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.generated.AbstractResourceTest
 {
     /**
-     * Server side root resource /wishlists 
+     * Server side root resource /wishlists
      */
     private static final String ROOT_RESOURCE_PATH = "/wishlists";
     private static final String REQUEST_URI = "https://local/wishlists";
-    private static final String CLIENT = "test";    
+    private static final String CLIENT = "test";
     private static final String TEST_FILE_FOR_UPLOAD = "src/test/resources/800x600.png";
 
     private static Wishlist WISHLIST;
@@ -114,6 +114,24 @@ public final class DefaultWishlistsResourceTest extends com.sap.wishlist.api.gen
 	Assert.assertNotNull("Response must not be null", response);
 	Assert.assertEquals("Response does not have expected response code",
 		Status.CREATED.getStatusCode(),
+		response.getStatus());
+    }
+
+    /* post(entity) /wishlists */
+    @Test
+    public void testPostCheckDuplicateID()
+    {
+	Wishlist wishlist = new Wishlist();
+	wishlist.setId(UUID.randomUUID().toString());
+	wishlist.setOwner(TestConstants.CUSTOMER);
+	instanceList.add(wishlist.getId());
+	createWishlist(wishlist);
+
+	final Response response = createWishlist(wishlist);
+
+	Assert.assertNotNull("Response must not be null", response);
+	Assert.assertEquals("Should return conflict when wishlist id is already used",
+		Status.CONFLICT.getStatusCode(),
 		response.getStatus());
     }
 
