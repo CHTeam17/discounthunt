@@ -43,9 +43,9 @@
 	</bean>
 	
 	<bean id="customerClient"
-	    class="com.sap.wishlist.client.customer.RestEndpointForSignupLoginAndCustomerProfileManagementClient">
+	    class="com.sap.wishlist.client.customer.CustomerServiceClient">
 	    <constructor-arg name="baseUri">
-	        <util:constant static-field="com.sap.wishlist.client.customer.RestEndpointForSignupLoginAndCustomerProfileManagementClient.DEFAULT_BASE_URI" />
+	        <util:constant static-field="com.sap.wishlist.client.customer.CustomerServiceClient.DEFAULT_BASE_URI" />
 	    </constructor-arg>
 	</bean>
 	
