@@ -24,6 +24,7 @@ import com.sap.cloud.yaas.servicesdk.authorization.AuthorizationScope;
 import com.sap.cloud.yaas.servicesdk.authorization.DiagnosticContext;
 import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionCallback;
 import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionTemplate;
+import com.sap.wishlist.api.generated.Customer;
 import com.sap.wishlist.api.generated.DocumentWishlist;
 import com.sap.wishlist.api.generated.DocumentWishlistRead;
 import com.sap.wishlist.api.generated.Error;
@@ -31,7 +32,6 @@ import com.sap.wishlist.api.generated.PagedParameters;
 import com.sap.wishlist.api.generated.ResourceLocation;
 import com.sap.wishlist.api.generated.Wishlist;
 import com.sap.wishlist.api.generated.YaasAwareParameters;
-import com.sap.wishlist.client.CustomerIgnoreUnknownProperties;
 import com.sap.wishlist.client.customer.CustomerServiceClient;
 import com.sap.wishlist.client.documentrepository.DocumentRepositoryClient;
 import com.sap.wishlist.client.email.EmailServiceClient;
@@ -133,8 +133,8 @@ public class WishlistService {
 		});
 
 	if (responseCustomer.getStatus() == Status.OK.getStatusCode()) {
-	    CustomerIgnoreUnknownProperties customer = responseCustomer
-		    .readEntity(CustomerIgnoreUnknownProperties.class);
+	    Customer customer = responseCustomer
+		    .readEntity(Customer.class);
 
 	    Response response = authorizedExecutionTemplate.executeAuthorized(
 		    new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),

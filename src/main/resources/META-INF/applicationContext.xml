@@ -34,7 +34,9 @@
 			</bean>
 		</constructor-arg>
 	</bean>
-
+	
+	<bean id="jsonClient" class="com.sap.wishlist.client.ClientFactory" />
+	    
 	<bean id="documentClient"
 	    class="com.sap.wishlist.client.documentrepository.DocumentRepositoryClient">
 	    <constructor-arg name="baseUri">
@@ -47,6 +49,7 @@
 	    <constructor-arg name="baseUri">
 	        <util:constant static-field="com.sap.wishlist.client.customer.CustomerServiceClient.DEFAULT_BASE_URI" />
 	    </constructor-arg>
+	    <constructor-arg name="client" ref="jsonClient" />
 	</bean>
 	
 	<bean id="emailClient"
