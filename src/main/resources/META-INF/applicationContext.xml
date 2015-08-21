@@ -40,7 +40,7 @@
 	<bean id="documentClient"
 	    class="com.sap.wishlist.client.documentrepository.DocumentClient">
 	    <constructor-arg name="baseUri">
-	        <util:constant static-field="com.sap.wishlist.client.documentrepository.DocumentRepositoryClient.DEFAULT_BASE_URI" />
+	        <util:constant static-field="com.sap.wishlist.client.documentrepository.DocumentClient.DEFAULT_BASE_URI" />
 	    </constructor-arg>
 	</bean>
 	
