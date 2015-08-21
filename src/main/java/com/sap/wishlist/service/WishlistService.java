@@ -33,7 +33,7 @@ import com.sap.wishlist.api.generated.ResourceLocation;
 import com.sap.wishlist.api.generated.Wishlist;
 import com.sap.wishlist.api.generated.YaasAwareParameters;
 import com.sap.wishlist.client.customer.CustomerServiceClient;
-import com.sap.wishlist.client.documentrepository.DocumentRepositoryClient;
+import com.sap.wishlist.client.documentrepository.DocumentClient;
 import com.sap.wishlist.client.email.EmailServiceClient;
 import com.sap.wishlist.email.Email;
 import com.sap.wishlist.email.EmailTemplate;
@@ -53,7 +53,7 @@ public class WishlistService {
     @Inject
     private CustomerServiceClient customerClient;
     @Inject
-    private DocumentRepositoryClient documentClient;
+    private DocumentClient documentClient;
     @Inject
     private AuthorizedExecutionTemplate authorizedExecutionTemplate;
     @Inject

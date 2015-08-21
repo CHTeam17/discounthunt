@@ -24,8 +24,8 @@ import com.sap.wishlist.api.generated.DocumentWishlistMediaRead;
 import com.sap.wishlist.api.generated.PagedParameters;
 import com.sap.wishlist.api.generated.WishlistMedia;
 import com.sap.wishlist.api.generated.YaasAwareParameters;
-import com.sap.wishlist.client.documentrepository.DocumentRepositoryClient;
-import com.sap.wishlist.client.mediaRepository.MediaRepositoryClient;
+import com.sap.wishlist.client.documentrepository.DocumentClient;
+import com.sap.wishlist.client.mediaRepository.MediaClient;
 import com.sap.wishlist.utility.AuthorizationHelper;
 import com.sap.wishlist.utility.ErrorHandler;
 
@@ -34,9 +34,9 @@ public class WishlistMediaService {
     private final String TYPE = "projectMedia";
 
     @Inject
-    private MediaRepositoryClient mediaClient;
+    private MediaClient mediaClient;
     @Inject
-    private DocumentRepositoryClient documentClient;
+    private DocumentClient documentClient;
     @Inject
     private AuthorizedExecutionTemplate authorizedExecutionTemplate;
     @Inject
@@ -144,7 +144,7 @@ public class WishlistMediaService {
 	for (DocumentWishlistMediaRead documentWishlistMedia : response.readEntity(DocumentWishlistMediaRead[].class)) {
 	    WishlistMedia wishlistMedia = new WishlistMedia();
 	    wishlistMedia.setId(documentWishlistMedia.getId());
-	    wishlistMedia.setUri(MediaRepositoryClient.DEFAULT_BASE_URI + "/" + yaasAware.getHybrisTenant() + "/"
+	    wishlistMedia.setUri(MediaClient.DEFAULT_BASE_URI + "/" + yaasAware.getHybrisTenant() + "/"
 		    + client + "/media/" + documentWishlistMedia.getWishlistMedia().getId());
 	    result.add(wishlistMedia);
 	}

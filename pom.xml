@@ -180,7 +180,7 @@
                             <goal>generate-client</goal>
                         </goals>
                         <configuration>
-                            <sourceRamlUri>https://api.yaas.io/hybris/repository/b1/api-console/raml/api/document-repository.raml</sourceRamlUri>
+                            <sourceRamlUri>https://api.yaas.io/hybris/document/b2/api-console/raml/api/document.raml</sourceRamlUri>
                             <basePackage>com.sap.wishlist.client.documentrepository</basePackage>
                         </configuration>
                     </execution>
@@ -202,7 +202,7 @@
                             <goal>generate-client</goal>
                         </goals>
                         <configuration>
-                            <sourceRamlUri>https://api.yaas.io/hybris/media-repository/b1/api-console/raml/api/media-repository.raml</sourceRamlUri>
+                            <sourceRamlUri>https://api.yaas.io/hybris/media/b2/api-console/raml/api/media.raml</sourceRamlUri>
                             <basePackage>com.sap.wishlist.client.mediaRepository</basePackage>
                         </configuration>
                     </execution>
