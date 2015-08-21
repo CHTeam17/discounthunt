@@ -38,7 +38,7 @@
 	<bean id="jsonClient" class="com.sap.wishlist.client.ClientFactory" />
 	    
 	<bean id="documentClient"
-	    class="com.sap.wishlist.client.documentrepository.DocumentRepositoryClient">
+	    class="com.sap.wishlist.client.documentrepository.DocumentClient">
 	    <constructor-arg name="baseUri">
 	        <util:constant static-field="com.sap.wishlist.client.documentrepository.DocumentRepositoryClient.DEFAULT_BASE_URI" />
 	    </constructor-arg>
