@@ -76,7 +76,7 @@ Dependencies
 How to Build and Test
 ---------------------
 
-In order to build the service locally, you need an *Application*, within your *Project/Site*, which subscribes to the following packages and scopes:
+In order to build the service locally, you need to [create an *Application*](https://devportal.yaas.io/gettingstarted/createanapplication/index.html), within your *Project/Site*, which subscribes to the following packages and scopes:
 - Email Package (Scopes: `hybris.email_send`, `hybris.email_manage`)
 - Core Package (Scopes: `hybris.media_manage`, `hybris.document_manage`, `hybris.document_view`)
 - Commerce as a Service (Scope: `hybris.customer_read`)
