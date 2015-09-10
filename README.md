@@ -15,7 +15,7 @@ Tenant Information
 
 You can use `playground` as value for `hybris-tenant` (a.k.a. project id) as a sandbox when experimenting with the service.
 
-Alternatively, in the Builder you need to [create a project](https://devportal.yaas.io/gettingstarted/setupaproject/index.html) containing a subscription to the package "Java Jersey Wishlist Example" with ID "logvqzfhlrk5". 
+Alternatively, in the Builder you need to [create a project](https://devportal.yaas.io/gettingstarted/setupaproject/index.html) containing a subscription to the package "Java Jersey Wishlist Example" with ID `logvqzfhlrk5`. 
 
 
 API Overview
@@ -76,16 +76,21 @@ Dependencies
 How to Build and Test
 ---------------------
 
-In order to build the service locally you have to provide proper ClientID and ClientSecret. In order to do so you need a application, within your project, which subscribes the following packages and scopes:
+In order to build the service locally, you need an *Application*, within your *Project/Site*, which subscribes to the following packages and scopes:
 - Email Package (Scopes: `hybris.email_send`, `hybris.email_manage`)
 - Core Package (Scopes: `hybris.media_manage`, `hybris.document_manage`, `hybris.document_view`)
 - Commerce as a Service (Scope: `hybris.customer_read`)
 
-You have to store the ID of your Project as `TENANT` in [TestConstants.java](src/test/java/com/sap/wishlist/api/TestConstants.java).
+You then have to set the following environment variables:
+- `YAAS_CLIENT`: your *Application*'s *Identifier*
+- `YAAS_CLIENT_ID`: your *Application*'s *Client ID*
+- `YAAS_CLIENT_SECRET`: Your *Application*'s *Client Secret*
 
-You need to [create a customer](https://devportal.yaas.io/services/customer/latest/index.html#CreateNewAccount) in your tenant and store it as `CUSTOMER` in [TestConstants.java](src/test/java/com/sap/wishlist/api/TestConstants.java).
+You have to store the ID of your *Project/Site* as `TENANT` in [TestConstants.java](src/test/java/com/sap/wishlist/api/TestConstants.java).
 
-Use `mvn clean install` to build the service and run the tests.
+You also need to [create a customer](https://devportal.yaas.io/services/customer/latest/index.html#CreateNewAccount) in your tenant and store it as `CUSTOMER` in [TestConstants.java](src/test/java/com/sap/wishlist/api/TestConstants.java).
+
+Finally, use `mvn clean install` to build the service and run the tests.
 
 
 FAQ / Troubleshooting
