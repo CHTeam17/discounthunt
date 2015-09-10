@@ -10,12 +10,12 @@
 # http://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html
 ---
 applications:
-- name: Java-Wishlist-v1
+- name: java-wishlist-example
   buildpack: java_buildpack
   instances: 1
   memory: 1024M
-  host: java-wishlist-v1
-  domain: cf3.hybris.com
+  host: java-wishlist-example
+  domain: us-east.cf.yaas.io
   path: target/java-jersey-wishlist.war
   env:
     # used in logging format

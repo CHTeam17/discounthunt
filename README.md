@@ -6,15 +6,17 @@ API Console
 -----------
 
 You can open the API Console in a separate window by using the following links: 
-- [API Console - Internal](http://java-wishlist-v1.cf3.hybris.com)
-- [API Console - External](https://api.stage.yaas.io/serviceexamples/javawishlist/v1)
+- [API Console - Internal](http://java-wishlist-example.us-east.cf.yaas.io)
+- [API Console - External](https://api.yaas.io/sap/java-wishlist/example)
 
 
 Tenant Information
 ------------------
 
-You can use `wishlistexamples` as value for `hybris-tenant` (a.k.a. project id) as a sandbox when experimenting with the service.
+You can use `playground` as value for `hybris-tenant` (a.k.a. project id) as a sandbox when experimenting with the service.
 
+
+Alternatively, in the Builder you need to [create a project](https://devportal.yaas.io/gettingstarted/setupaproject/index.html) containing a subscription to the package "Java Jersey Wishlist Example" with ID "logvqzfhlrk5". 
 
 API Overview
 ------------
@@ -73,9 +75,17 @@ Dependencies
 How to Build and Test
 ---------------------
 
-In the Builder, you need a project containing a subscription to the package "YaaS Service Examples" from the team "serviceexamples". Alternatively, you can use our sandbox test tenant `wishlistexamples`.
+In order to build the service locally you have to provide proper ClientID and ClientSecret. In order to do so you need a application, within your project, which subscribes the following packages and scopes:
+* Email Package
+** Scopes: hybris.email_send, hybris.email_manage
+* Core Package
+** Scopes: hybris.media_manage, hybris.document_manage, hybris.document_view
+* Commerce as a Service
+** Scope: hybris.customer_read
 
-You need to create a customer in your tenant and store it as `CUSTOMER`in [TestConstants.java](src/test/java/com/sap/wishlist/api/TestConstants.java).
+You have to store the ID of your Project as `TENANT` in [TestConstants.java](src/test/java/com/sap/wishlist/api/TestConstants.java).
+
+You need to [create a customer](https://devportal.yaas.io/services/customer/latest/index.html#CreateCustomerwithoutEmail) in your tenant and store it as `CUSTOMER` in [TestConstants.java](src/test/java/com/sap/wishlist/api/TestConstants.java).
 
 Use `mvn clean install` to build the service and run the tests.
 
