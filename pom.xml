@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.sap.cloud.yaas.service-sdk</groupId>
 		<artifactId>service-sdk-superpom</artifactId>
-		<version>4.0.0</version>
+		<version>4.3.4</version>
 		<relativePath />
 	</parent>
 
@@ -17,18 +17,19 @@
 
 	<properties>
 		<!-- hybris projects -->
-		<service-sdk.version>4.0.0</service-sdk.version>
+		<service-sdk.version>4.3.4</service-sdk.version>
 
 		<!-- plugins -->
-		<jetty.plugin.version>9.2.6.v20141205</jetty.plugin.version>
+		<jetty.plugin.version>9.3.2.v20150730</jetty.plugin.version>
 
 		<!-- libraries -->
 		<jaxrs.version>2.0.1</jaxrs.version>
-		<jersey.version>2.14</jersey.version>
-		<jackson.version>2.4.4</jackson.version>
+		<jersey.version>2.19</jersey.version>
+		<jackson.version>2.5.1</jackson.version>
 		<javax.servlet.version>3.1.0</javax.servlet.version>
-		<spring.version>4.1.4.RELEASE</spring.version>
-		<cors.filter.version>2.2.1</cors.filter.version>
+		<spring.version>4.2.0.RELEASE</spring.version>
+		<cors.filter.version>2.4</cors.filter.version>
+		<json.version>20141113</json.version>
 
 		<!-- test libraries -->
 		<junit.version>4.12</junit.version>
