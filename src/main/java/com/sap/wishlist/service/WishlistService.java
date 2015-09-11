@@ -20,7 +20,6 @@ import javax.ws.rs.core.UriInfo;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.sap.cloud.yaas.servicesdk.authorization.AccessToken;
-import com.sap.cloud.yaas.servicesdk.authorization.AuthorizationScope;
 import com.sap.cloud.yaas.servicesdk.authorization.DiagnosticContext;
 import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionCallback;
 import com.sap.cloud.yaas.servicesdk.authorization.integration.AuthorizedExecutionTemplate;
@@ -66,24 +65,26 @@ public class WishlistService {
     /* GET / */
     public Response get(final PagedParameters paged, final YaasAwareParameters yaasAware) {
 	ArrayList<Wishlist> result = null;
-	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-		new AuthorizedExecutionCallback<Response>()
-		{
-		    @Override
-		    public Response execute(final AccessToken token)
-		    {
-			return documentClient.tenant(yaasAware.getHybrisTenant())
-				.clientData(client)
-				.type(WISHLIST_PATH)
-				.prepareGet()
-				.withPageNumber(paged.getPageNumber())
-				.withPageSize(paged.getPageSize())
-				.withAuthorization(authorizationHelper.buildToken(token))
-				.execute();
-		    }
-		});
+	Response response = authorizedExecutionTemplate
+		.executeAuthorized(
+			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
+				authorizationHelper.getScopes()),
+			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
+			new AuthorizedExecutionCallback<Response>()
+			{
+			    @Override
+			    public Response execute(final AccessToken token)
+			    {
+				return documentClient.tenant(yaasAware.getHybrisTenant())
+					.clientData(client)
+					.type(WISHLIST_PATH)
+					.prepareGet()
+					.withPageNumber(paged.getPageNumber())
+					.withPageSize(paged.getPageSize())
+					.withAuthorization(authorizationHelper.buildToken(token))
+					.execute();
+			    }
+			});
 	if (response.getStatus() == Response.Status.OK.getStatusCode()) {
 	    result = new ArrayList<Wishlist>();
 	    for (DocumentWishlistRead documentWishlist : response.readEntity(DocumentWishlistRead[].class)) {
@@ -115,29 +116,32 @@ public class WishlistService {
 	documentWishlist.setWishlist(wishlist);
 
 	// Check if Customer exist
-	Response responseCustomer = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-		new AuthorizedExecutionCallback<Response>()
-		{
-		    @Override
-		    public Response execute(final AccessToken token)
-		    {
-			return customerClient.tenant(yaasAware.getHybrisTenant())
-				.customers()
-				.customerNumber(wishlist.getOwner())
-				.prepareGet()
-				.withAuthorization(authorizationHelper.buildToken(token))
-				.execute();
-		    }
-		});
+	Response responseCustomer = authorizedExecutionTemplate
+		.executeAuthorized(
+			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
+				authorizationHelper.getScopes()),
+			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
+			new AuthorizedExecutionCallback<Response>()
+			{
+			    @Override
+			    public Response execute(final AccessToken token)
+			    {
+				return customerClient.tenant(yaasAware.getHybrisTenant())
+					.customers()
+					.customerNumber(wishlist.getOwner())
+					.prepareGet()
+					.withAuthorization(authorizationHelper.buildToken(token))
+					.execute();
+			    }
+			});
 
 	if (responseCustomer.getStatus() == Status.OK.getStatusCode()) {
 	    Customer customer = responseCustomer
 		    .readEntity(Customer.class);
 
 	    Response response = authorizedExecutionTemplate.executeAuthorized(
-		    new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
+		    authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
+			    authorizationHelper.getScopes()),
 		    new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
 		    new AuthorizedExecutionCallback<Response>()
 		    {
@@ -184,23 +188,25 @@ public class WishlistService {
 
     /* GET //{wishlistId} */
     public Response getByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId) {
-	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-		new AuthorizedExecutionCallback<Response>()
-		{
-		    @Override
-		    public Response execute(final AccessToken token)
-		    {
-			return documentClient.tenant(yaasAware.getHybrisTenant())
-				.clientData(client)
-				.type(WISHLIST_PATH)
-				.dataId(wishlistId)
-				.prepareGet()
-				.withAuthorization(authorizationHelper.buildToken(token))
-				.execute();
-		    }
-		});
+	Response response = authorizedExecutionTemplate
+		.executeAuthorized(
+			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
+				authorizationHelper.getScopes()),
+			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
+			new AuthorizedExecutionCallback<Response>()
+			{
+			    @Override
+			    public Response execute(final AccessToken token)
+			    {
+				return documentClient.tenant(yaasAware.getHybrisTenant())
+					.clientData(client)
+					.type(WISHLIST_PATH)
+					.dataId(wishlistId)
+					.prepareGet()
+					.withAuthorization(authorizationHelper.buildToken(token))
+					.execute();
+			    }
+			});
 
 	if (response.getStatus() != Status.OK.getStatusCode()) {
 	    ErrorHandler.handleResponse(response);
@@ -216,24 +222,26 @@ public class WishlistService {
 	final DocumentWishlist documentWishlist = new DocumentWishlist();
 	documentWishlist.setWishlist(wishlist);
 
-	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-		new AuthorizedExecutionCallback<Response>()
-		{
-		    @Override
-		    public Response execute(final AccessToken token)
-		    {
-			return documentClient.tenant(yaasAware.getHybrisTenant())
-				.clientData(client)
-				.type(WISHLIST_PATH)
-				.dataId(wishlist.getId())
-				.preparePut()
-				.withAuthorization(authorizationHelper.buildToken(token))
-				.withPayload(Entity.json(documentWishlist))
-				.execute();
-		    }
-		});
+	Response response = authorizedExecutionTemplate
+		.executeAuthorized(
+			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
+				authorizationHelper.getScopes()),
+			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
+			new AuthorizedExecutionCallback<Response>()
+			{
+			    @Override
+			    public Response execute(final AccessToken token)
+			    {
+				return documentClient.tenant(yaasAware.getHybrisTenant())
+					.clientData(client)
+					.type(WISHLIST_PATH)
+					.dataId(wishlist.getId())
+					.preparePut()
+					.withAuthorization(authorizationHelper.buildToken(token))
+					.withPayload(Entity.json(documentWishlist))
+					.execute();
+			    }
+			});
 
 	if (response.getStatus() != Status.OK.getStatusCode()) {
 	    ErrorHandler.handleResponse(response);
@@ -244,23 +252,25 @@ public class WishlistService {
 
     /* DELETE //{wishlistId} */
     public Response deleteByWishlistId(final YaasAwareParameters yaasAware, final java.lang.String wishlistId) {
-	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-		new AuthorizedExecutionCallback<Response>()
-		{
-		    @Override
-		    public Response execute(final AccessToken token)
-		    {
-			return documentClient.tenant(yaasAware.getHybrisTenant())
-				.clientData(client)
-				.type(WISHLIST_PATH)
-				.dataId(wishlistId)
-				.prepareDelete()
-				.withAuthorization(authorizationHelper.buildToken(token))
-				.execute();
-		    }
-		});
+	Response response = authorizedExecutionTemplate
+		.executeAuthorized(
+			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
+				authorizationHelper.getScopes()),
+			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
+			new AuthorizedExecutionCallback<Response>()
+			{
+			    @Override
+			    public Response execute(final AccessToken token)
+			    {
+				return documentClient.tenant(yaasAware.getHybrisTenant())
+					.clientData(client)
+					.type(WISHLIST_PATH)
+					.dataId(wishlistId)
+					.prepareDelete()
+					.withAuthorization(authorizationHelper.buildToken(token))
+					.execute();
+			    }
+			});
 
 	if (response.getStatus() != Status.NO_CONTENT.getStatusCode()) {
 	    ErrorHandler.handleResponse(response);
@@ -282,21 +292,23 @@ public class WishlistService {
 	templateAttributeDefinition.add(new TemplateAttributeDefinition("description", false));
 	emailTemplateDefinition.setTemplateAttributeDefinitions(templateAttributeDefinition);
 
-	Response response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-		new AuthorizedExecutionCallback<Response>()
-		{
-		    @Override
-		    public Response execute(final AccessToken token)
-		    {
-			return emailClient.tenantTemplates(yaasAware.getHybrisTenant())
-				.preparePost()
-				.withAuthorization(authorizationHelper.buildToken(token))
-				.withPayload(Entity.json(emailTemplateDefinition))
-				.execute();
-		    }
-		});
+	Response response = authorizedExecutionTemplate
+		.executeAuthorized(
+			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
+				authorizationHelper.getScopes()),
+			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
+			new AuthorizedExecutionCallback<Response>()
+			{
+			    @Override
+			    public Response execute(final AccessToken token)
+			    {
+				return emailClient.tenantTemplates(yaasAware.getHybrisTenant())
+					.preparePost()
+					.withAuthorization(authorizationHelper.buildToken(token))
+					.withPayload(Entity.json(emailTemplateDefinition))
+					.execute();
+			    }
+			});
 
 	if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
 	    EmailTemplate templateSubject = EmailTemplate
@@ -332,21 +344,23 @@ public class WishlistService {
 	templateAttributeValue.add(new TemplateAttributeValue("description", wishlist.getDescription()));
 	eMail.setAttributes(templateAttributeValue);
 
-	response = authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-		new AuthorizedExecutionCallback<Response>()
-		{
-		    @Override
-		    public Response execute(final AccessToken token)
-		    {
-			return emailClient.tenantSend(yaasAware.getHybrisTenant())
-				.preparePost()
-				.withAuthorization(authorizationHelper.buildToken(token))
-				.withPayload(Entity.json(eMail))
-				.execute();
-		    }
-		});
+	response = authorizedExecutionTemplate
+		.executeAuthorized(
+			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
+				authorizationHelper.getScopes()),
+			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
+			new AuthorizedExecutionCallback<Response>()
+			{
+			    @Override
+			    public Response execute(final AccessToken token)
+			    {
+				return emailClient.tenantSend(yaasAware.getHybrisTenant())
+					.preparePost()
+					.withAuthorization(authorizationHelper.buildToken(token))
+					.withPayload(Entity.json(eMail))
+					.execute();
+			    }
+			});
 
 	if (response.getStatus() != Response.Status.CREATED.getStatusCode()) {
 	    return false;
@@ -358,24 +372,27 @@ public class WishlistService {
 	    final EmailTemplate template) {
 	final String client = this.client;
 
-	return authorizedExecutionTemplate.executeAuthorized(
-		new AuthorizationScope(yaasAware.getHybrisTenant(), authorizationHelper.getScopes()),
-		new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-		new AuthorizedExecutionCallback<Response>()
-		{
-		    @Override
-		    public Response execute(final AccessToken token)
-		    {
-			return emailClient
-				.tenantTemplatesClient(yaasAware.getHybrisTenant(), client)
-				.code(template.getCode())
-				.fileType(template.getFileType())
-				.preparePut()
-				.withAuthorization(authorizationHelper.buildToken(token))
-				.withPayload(
-					Entity.entity(template.getDataStream(), MediaType.APPLICATION_OCTET_STREAM_TYPE))
-				.execute();
-		    }
-		});
+	return authorizedExecutionTemplate
+		.executeAuthorized(
+			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
+				authorizationHelper.getScopes()),
+			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
+			new AuthorizedExecutionCallback<Response>()
+			{
+			    @Override
+			    public Response execute(final AccessToken token)
+			    {
+				return emailClient
+					.tenantTemplatesClient(yaasAware.getHybrisTenant(), client)
+					.code(template.getCode())
+					.fileType(template.getFileType())
+					.preparePut()
+					.withAuthorization(authorizationHelper.buildToken(token))
+					.withPayload(
+						Entity.entity(template.getDataStream(),
+							MediaType.APPLICATION_OCTET_STREAM_TYPE))
+					.execute();
+			    }
+			});
     }
 }
