@@ -86,7 +86,7 @@ You then have to set the following environment variables:
 - `YAAS_CLIENT_ID`: your *Application*'s *Client ID*
 - `YAAS_CLIENT_SECRET`: Your *Application*'s *Client Secret*
 
-If you use the *Application*'s credentials, you're running in a single tenant mode. Therefore you have to change the flag "YAAS_CLIENT_IS_APPLICATION" parameter in [default.properties|src/main/resources/default.properties] to "true".
+If you use the *Application*'s credentials, you're running in a single tenant mode. Therefore you have to change the flag "YAAS_CLIENT_IS_APPLICATION" parameter in [default.properties](src/main/resources/default.properties) to "true".
 
 You have to store the ID of your *Project/Site* as `TENANT` in [TestConstants.java](src/test/java/com/sap/wishlist/api/TestConstants.java).
 
