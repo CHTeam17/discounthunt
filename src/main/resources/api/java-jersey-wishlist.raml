@@ -33,14 +33,14 @@ resourceTypes:
   is: [yaasAware]
   get:
     is: [paged]
-    description: Gets all wishlists
+    description: Get all wishlists.
     responses:
       200:
         body:
           application/json:
             example: !include wishlists-example.json
   post:
-    description: Checks if the owner exists as a customer in the system, creates a new wishlist, and sends an e-mail to the customer
+    description: Check if the owner exists as a customer in the system, create a new wishlist, and send an e-mail to the customer.
     body:
       application/json:
         example: !include wishlist-example.json
@@ -50,11 +50,11 @@ resourceTypes:
     is: [yaasAware]
     uriParameters:
       wishlistId:
-        description: the id of the wishlist to work on
+        description: The ID of the wishlist to work on.
         example: 784hti8ey
         type: string
     get:
-      description: Gets a wishlist
+      description: Get a wishlist.
       responses:
         200:
           body:
@@ -62,13 +62,13 @@ resourceTypes:
               example: !include wishlist-example.json
 
     put:
-      description: Updates a wishlist
+      description: Update a wishlist.
       body:
         application/json:
           example: !include wishlist-example.json
 
     delete:
-      description: Deletes a wishlist
+      description: Delete a wishlist.
     /media:
       is: [yaasAware]
       post:
