@@ -14,7 +14,7 @@ Tenant Information
 
 You can use `playground` as the value for `hybris-tenant` (the project ID) to use it as a sandbox when experimenting with the service.
 
-Also, you need to [create a project](https://devportal.yaas.io/gettingstarted/setupaproject/index.html) in the Builder that contains a subscription to the package "Java Jersey Wishlist Example" with the ID `logvqzfhlrk5`. 
+Alternatively, you can [create a project](https://devportal.yaas.io/gettingstarted/setupaproject/index.html) in the Builder that contains a subscription to the package "Java Jersey Wishlist Example" with the ID `logvqzfhlrk5`. 
 
 
 API Overview
@@ -76,7 +76,7 @@ How to Build and Test
 ---------------------
 
 In order to build the service locally, you need to [create an Application](https://devportal.yaas.io/gettingstarted/createanapplication/index.html) within your Project/Site, which subscribes to the following packages and scopes:
-- Email Service Package (Scopes: `hybris.email_send`, `hybris.email_manage`)
+- Email Package (Scopes: `hybris.email_send`, `hybris.email_manage`)
 - Core Services Package (Scopes: `hybris.media_manage`, `hybris.document_manage`, `hybris.document_view`)
 - Commerce as a Service Package (Scope: `hybris.customer_read`)
 
