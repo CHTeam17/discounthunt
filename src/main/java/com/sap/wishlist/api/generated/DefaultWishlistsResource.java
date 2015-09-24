@@ -31,73 +31,78 @@ import com.sap.wishlist.service.WishlistService;
  */
 @Component("apiWishlistsResource")
 @Singleton
-public class DefaultWishlistsResource implements com.sap.wishlist.api.generated.WishlistsResource
-{
-    @javax.ws.rs.core.Context
-    private javax.ws.rs.core.UriInfo uriInfo;
+public class DefaultWishlistsResource implements WishlistsResource {
+	@javax.ws.rs.core.Context
+	private javax.ws.rs.core.UriInfo uriInfo;
 
-    @Context
-    private ContainerRequest request;
+	@Context
+	private ContainerRequest request;
 
-    @Inject
-    private WishlistService wishlistService;
-    @Inject
-    private WishlistMediaService wishlistMediaService;
+	@Inject
+	private WishlistService wishlistService;
+	@Inject
+	private WishlistMediaService wishlistMediaService;
 
-    /* GET / */
-    @Override
-    public Response get(final PagedParameters paged, final YaasAwareParameters yaasAware)
-    {
-	return wishlistService.get(paged, yaasAware);
-    }
+	/* GET / */
+	@Override
+	public Response get(final PagedParameters paged,
+			final YaasAwareParameters yaasAware) {
+		return wishlistService.get(paged, yaasAware);
+	}
 
-    /* POST / */
-    @Override
-    public Response post(YaasAwareParameters yaasAware, Wishlist wishlist)
-    {
-	return wishlistService.post(yaasAware, uriInfo, wishlist);
-    }
+	/* POST / */
+	@Override
+	public Response post(YaasAwareParameters yaasAware, Wishlist wishlist) {
+		return wishlistService.post(yaasAware, uriInfo, wishlist);
+	}
 
-    /* GET //{wishlistId} */
-    @Override
-    public Response getByWishlistId(YaasAwareParameters yaasAware, String wishlistId)
-    {
-	return wishlistService.getByWishlistId(yaasAware, wishlistId);
-    }
+	/* GET //{wishlistId} */
+	@Override
+	public Response getByWishlistId(YaasAwareParameters yaasAware,
+			String wishlistId) {
+		return wishlistService.getByWishlistId(yaasAware, wishlistId);
+	}
 
-    /* PUT //{wishlistId} */
-    @Override
-    public Response putByWishlistId(YaasAwareParameters yaasAware, String wishlistId, Wishlist wishlist)
-    {
-	return wishlistService.putByWishlistId(yaasAware, wishlistId, wishlist);
-    }
+	/* PUT //{wishlistId} */
+	@Override
+	public Response putByWishlistId(YaasAwareParameters yaasAware,
+			String wishlistId, Wishlist wishlist) {
+		return wishlistService.putByWishlistId(yaasAware, wishlistId, wishlist);
+	}
 
-    /* DELETE //{wishlistId} */
-    @Override
-    public Response deleteByWishlistId(YaasAwareParameters yaasAware, String wishlistId)
-    {
-	return wishlistService.deleteByWishlistId(yaasAware, wishlistId);
-    }
+	/* DELETE //{wishlistId} */
+	@Override
+	public Response deleteByWishlistId(YaasAwareParameters yaasAware,
+			String wishlistId) {
+		return wishlistService.deleteByWishlistId(yaasAware, wishlistId);
+	}
 
-    /* POST //{wishlistId}/media */
-    @Override
-    public Response postByWishlistIdMedia(YaasAwareParameters yaasAware, String wishlistId) {
-	final FormDataMultiPart multiPart = request.readEntity(FormDataMultiPart.class);
-	final InputStream fileInputStream = ((BodyPartEntity) multiPart.getField("file").getEntity()).getInputStream();
+	/* POST //{wishlistId}/media */
+	@Override
+	public Response postByWishlistIdMedia(YaasAwareParameters yaasAware,
+			String wishlistId) {
+		final FormDataMultiPart multiPart = request
+				.readEntity(FormDataMultiPart.class);
+		final InputStream fileInputStream = ((BodyPartEntity) multiPart
+				.getField("file").getEntity()).getInputStream();
 
-	return wishlistMediaService.postByWishlistIdMedia(yaasAware, wishlistId, fileInputStream,
-		uriInfo.getRequestUri());
-    }
+		return wishlistMediaService.postByWishlistIdMedia(yaasAware,
+				wishlistId, fileInputStream, uriInfo.getRequestUri());
+	}
 
-    /* GET //{wishlistId}/media */
-    @Override
-    public Response getByWishlistIdMedia(PagedParameters paged, YaasAwareParameters yaasAware, String wishlistId) {
-	return wishlistMediaService.getByWishlistIdMedia(paged, yaasAware, wishlistId);
-    }
+	/* GET //{wishlistId}/media */
+	@Override
+	public Response getByWishlistIdMedia(PagedParameters paged,
+			YaasAwareParameters yaasAware, String wishlistId) {
+		return wishlistMediaService.getByWishlistIdMedia(paged, yaasAware,
+				wishlistId);
+	}
 
-    /* DELETE //{wishlistId}/media/{mediaId} */
-    @Override
-    public Response deleteByWishlistIdMediaByMediaId(YaasAwareParameters yaasAware, String wishlistId, String mediaId) {
-	return wishlistMediaService.deleteByWishlistIdMediaByMediaId(yaasAware, wishlistId, mediaId);
-    }
+	/* DELETE //{wishlistId}/media/{mediaId} */
+	@Override
+	public Response deleteByWishlistIdMediaByMediaId(
+			YaasAwareParameters yaasAware, String wishlistId, String mediaId) {
+		return wishlistMediaService.deleteByWishlistIdMediaByMediaId(yaasAware,
+				wishlistId, mediaId);
+	}
 }

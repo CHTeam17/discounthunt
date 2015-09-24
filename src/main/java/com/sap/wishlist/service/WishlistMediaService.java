@@ -30,205 +30,218 @@ import com.sap.wishlist.utility.ErrorHandler;
 
 @ManagedBean
 public class WishlistMediaService {
-    private final String TYPE = "projectMedia";
+	private final String TYPE = "projectMedia";
 
-    @Inject
-    private MediaClient mediaClient;
-    @Inject
-    private DocumentClient documentClient;
-    @Inject
-    private AuthorizedExecutionTemplate authorizedExecutionTemplate;
-    @Inject
-    private AuthorizationHelper authorizationHelper;
-    @Value("${YAAS_CLIENT}")
-    private String client;
+	@Inject
+	private MediaClient mediaClient;
+	@Inject
+	private DocumentClient documentClient;
+	@Inject
+	private AuthorizedExecutionTemplate authorizedExecutionTemplate;
+	@Inject
+	private AuthorizationHelper authorizationHelper;
+	@Value("${YAAS_CLIENT}")
+	private String client;
 
-    /* POST //{wishlistId}/media */
-    public Response postByWishlistIdMedia(YaasAwareParameters yaasAware, String wishlistId,
-	    final InputStream fileInputStream, final URI requestUri) {
+	/* POST //{wishlistId}/media */
+	public Response postByWishlistIdMedia(YaasAwareParameters yaasAware,
+			String wishlistId, final InputStream fileInputStream,
+			final URI requestUri) {
 
-	// Prepare MultiPart
-	final FormDataMultiPart multiPart = new FormDataMultiPart();
-	multiPart.bodyPart(new StreamDataBodyPart("file", fileInputStream));
+		// Prepare MultiPart
+		final FormDataMultiPart multiPart = new FormDataMultiPart();
+		multiPart.bodyPart(new StreamDataBodyPart("file", fileInputStream));
 
-	Response response = authorizedExecutionTemplate
-		.executeAuthorized(
-			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
-				authorizationHelper.getScopes()),
-			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-			new AuthorizedExecutionCallback<Response>()
-			{
-			    @Override
-			    public Response execute(final AccessToken token)
-			    {
-				return mediaClient.tenant(yaasAware.getHybrisTenant())
-					.client(client)
-					.media()
-					.preparePost()
-					.withAuthorization(authorizationHelper.buildToken(token))
-					.withPayload(multiPart, MediaType.MULTIPART_FORM_DATA)
-					.execute();
-			    }
-			});
+		Response response = authorizedExecutionTemplate.executeAuthorized(
+				authorizationHelper.getAuthorizationScope(
+						yaasAware.getHybrisTenant(),
+						authorizationHelper.getScopes()),
+				new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware
+						.getHybrisHop()),
+				new AuthorizedExecutionCallback<Response>() {
+					@Override
+					public Response execute(final AccessToken token) {
+						return mediaClient
+								.tenant(yaasAware.getHybrisTenant())
+								.client(client)
+								.media()
+								.preparePost()
+								.withAuthorization(
+										authorizationHelper.buildToken(token))
+								.withPayload(multiPart,
+										MediaType.MULTIPART_FORM_DATA)
+								.execute();
+					}
+				});
 
-	if (response.getStatus() != Response.Status.CREATED.getStatusCode()) {
-	    ErrorHandler.handleResponse(response);
+		if (response.getStatus() != Response.Status.CREATED.getStatusCode()) {
+			ErrorHandler.handleResponse(response);
+		}
+
+		ResourceLocation location = response.readEntity(ResourceLocation.class);
+
+		// Create document repository entry for media
+		final DocumentWishlistMedia documentWishlistMedia = new DocumentWishlistMedia();
+		WishlistMedia wishlistMedia = new WishlistMedia();
+		wishlistMedia.setId(location.getId());
+
+		documentWishlistMedia.setWishlistId(wishlistId);
+		documentWishlistMedia.setWishlistMedia(wishlistMedia);
+
+		response = authorizedExecutionTemplate.executeAuthorized(
+				authorizationHelper.getAuthorizationScope(
+						yaasAware.getHybrisTenant(),
+						authorizationHelper.getScopes()),
+				new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware
+						.getHybrisHop()),
+				new AuthorizedExecutionCallback<Response>() {
+					@Override
+					public Response execute(final AccessToken token) {
+						return documentClient
+								.tenant(yaasAware.getHybrisTenant())
+								.clientData(client)
+								.type(TYPE)
+								.preparePost()
+								.withAuthorization(
+										authorizationHelper.buildToken(token))
+								.withPayload(documentWishlistMedia).execute();
+					}
+				});
+
+		if (response.getStatus() != Response.Status.CREATED.getStatusCode()) {
+			ErrorHandler.handleResponse(response);
+		}
+
+		location = response.readEntity(ResourceLocation.class);
+
+		URI resourceURI = URI.create(requestUri.toString() + "/"
+				+ location.getId());
+		return Response.created(resourceURI).build();
 	}
 
-	ResourceLocation location = response.readEntity(ResourceLocation.class);
+	/* GET //{wishlistId}/media */
+	public Response getByWishlistIdMedia(PagedParameters paged,
+			YaasAwareParameters yaasAware, String wishlistId) {
+		// Return parameter
+		ArrayList<WishlistMedia> result = null;
 
-	// Create document repository entry for media
-	final DocumentWishlistMedia documentWishlistMedia = new DocumentWishlistMedia();
-	WishlistMedia wishlistMedia = new WishlistMedia();
-	wishlistMedia.setId(location.getId());
+		Response response = authorizedExecutionTemplate.executeAuthorized(
+				authorizationHelper.getAuthorizationScope(
+						yaasAware.getHybrisTenant(),
+						authorizationHelper.getScopes()),
+				new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware
+						.getHybrisHop()),
+				new AuthorizedExecutionCallback<Response>() {
+					@Override
+					public Response execute(final AccessToken token) {
+						return documentClient
+								.tenant(yaasAware.getHybrisTenant())
+								.clientData(client)
+								.type(TYPE)
+								.prepareGet()
+								.withAuthorization(
+										authorizationHelper.buildToken(token))
+								.withPageNumber(paged.getPageNumber())
+								.withPageSize(paged.getPageSize()).execute();
+					}
+				});
 
-	documentWishlistMedia.setWishlistId(wishlistId);
-	documentWishlistMedia.setWishlistMedia(wishlistMedia);
+		if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+			ErrorHandler.handleResponse(response);
+		}
 
-	response = authorizedExecutionTemplate
-		.executeAuthorized(
-			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
-				authorizationHelper.getScopes()),
-			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-			new AuthorizedExecutionCallback<Response>()
-			{
-			    @Override
-			    public Response execute(final AccessToken token)
-			    {
-				return documentClient.tenant(yaasAware.getHybrisTenant())
-					.clientData(client)
-					.type(TYPE)
-					.preparePost()
-					.withAuthorization(authorizationHelper.buildToken(token))
-					.withPayload(documentWishlistMedia)
-					.execute();
-			    }
-			});
+		result = new ArrayList<WishlistMedia>();
+		for (DocumentWishlistMediaRead documentWishlistMedia : response
+				.readEntity(DocumentWishlistMediaRead[].class)) {
+			WishlistMedia wishlistMedia = new WishlistMedia();
+			wishlistMedia.setId(documentWishlistMedia.getId());
+			wishlistMedia.setUri(MediaClient.DEFAULT_BASE_URI + "/"
+					+ yaasAware.getHybrisTenant() + "/" + client + "/media/"
+					+ documentWishlistMedia.getWishlistMedia().getId());
+			result.add(wishlistMedia);
+		}
 
-	if (response.getStatus() != Response.Status.CREATED.getStatusCode()) {
-	    ErrorHandler.handleResponse(response);
+		return Response.ok().entity(result).build();
 	}
 
-	location = response.readEntity(ResourceLocation.class);
+	/* DELETE //{wishlistId}/media/{mediaId} */
+	public Response deleteByWishlistIdMediaByMediaId(
+			YaasAwareParameters yaasAware, String wishlistId, String mediaId) {
+		Response response = authorizedExecutionTemplate.executeAuthorized(
+				authorizationHelper.getAuthorizationScope(
+						yaasAware.getHybrisTenant(),
+						authorizationHelper.getScopes()),
+				new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware
+						.getHybrisHop()),
+				new AuthorizedExecutionCallback<Response>() {
+					@Override
+					public Response execute(final AccessToken token) {
+						return documentClient
+								.tenant(yaasAware.getHybrisTenant())
+								.clientData(client)
+								.type(TYPE)
+								.dataId(mediaId)
+								.prepareGet()
+								.withAuthorization(
+										authorizationHelper.buildToken(token))
+								.execute();
+					}
+				});
 
-	URI resourceURI = URI.create(requestUri.toString() + "/" + location.getId());
-	return Response.created(resourceURI).build();
-    }
+		if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+			ErrorHandler.handleResponse(response);
+		}
 
-    /* GET //{wishlistId}/media */
-    public Response getByWishlistIdMedia(PagedParameters paged, YaasAwareParameters yaasAware, String wishlistId) {
-	// Return parameter
-	ArrayList<WishlistMedia> result = null;
+		DocumentWishlistMediaRead documentWishlistMediaRead = response
+				.readEntity(DocumentWishlistMediaRead.class);
+		final String mediaRepoId = (String) documentWishlistMediaRead
+				.getWishlistMedia().getId();
 
-	Response response = authorizedExecutionTemplate
-		.executeAuthorized(
-			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
-				authorizationHelper.getScopes()),
-			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-			new AuthorizedExecutionCallback<Response>()
-			{
-			    @Override
-			    public Response execute(final AccessToken token)
-			    {
-				return documentClient.tenant(yaasAware.getHybrisTenant())
-					.clientData(client)
-					.type(TYPE)
-					.prepareGet()
-					.withAuthorization(authorizationHelper.buildToken(token))
-					.withPageNumber(paged.getPageNumber())
-					.withPageSize(paged.getPageSize())
-					.execute();
-			    }
-			});
+		response = authorizedExecutionTemplate.executeAuthorized(
+				authorizationHelper.getAuthorizationScope(
+						yaasAware.getHybrisTenant(),
+						authorizationHelper.getScopes()),
+				new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware
+						.getHybrisHop()),
+				new AuthorizedExecutionCallback<Response>() {
+					@Override
+					public Response execute(final AccessToken token) {
+						return documentClient
+								.tenant(yaasAware.getHybrisTenant())
+								.clientData(client)
+								.type(TYPE)
+								.dataId(mediaId)
+								.prepareDelete()
+								.withAuthorization(
+										authorizationHelper.buildToken(token))
+								.execute();
+					}
+				});
 
-	if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-	    ErrorHandler.handleResponse(response);
+		if (response.getStatus() != Response.Status.NO_CONTENT.getStatusCode()) {
+			ErrorHandler.handleResponse(response);
+		}
+		response = authorizedExecutionTemplate.executeAuthorized(
+				authorizationHelper.getAuthorizationScope(
+						yaasAware.getHybrisTenant(),
+						authorizationHelper.getScopes()),
+				new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware
+						.getHybrisHop()),
+				new AuthorizedExecutionCallback<Response>() {
+					@Override
+					public Response execute(final AccessToken token) {
+						return mediaClient
+								.tenant(yaasAware.getHybrisTenant())
+								.client(client)
+								.media()
+								.mediaId(mediaRepoId)
+								.prepareDelete()
+								.withAuthorization(
+										authorizationHelper.buildToken(token))
+								.execute();
+					}
+				});
+
+		return Response.noContent().build();
 	}
-
-	result = new ArrayList<WishlistMedia>();
-	for (DocumentWishlistMediaRead documentWishlistMedia : response.readEntity(DocumentWishlistMediaRead[].class)) {
-	    WishlistMedia wishlistMedia = new WishlistMedia();
-	    wishlistMedia.setId(documentWishlistMedia.getId());
-	    wishlistMedia.setUri(MediaClient.DEFAULT_BASE_URI + "/" + yaasAware.getHybrisTenant() + "/"
-		    + client + "/media/" + documentWishlistMedia.getWishlistMedia().getId());
-	    result.add(wishlistMedia);
-	}
-
-	return Response.ok().entity(result).build();
-    }
-
-    /* DELETE //{wishlistId}/media/{mediaId} */
-    public Response deleteByWishlistIdMediaByMediaId(YaasAwareParameters yaasAware, String wishlistId, String mediaId) {
-	Response response = authorizedExecutionTemplate
-		.executeAuthorized(
-			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
-				authorizationHelper.getScopes()),
-			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-			new AuthorizedExecutionCallback<Response>()
-			{
-			    @Override
-			    public Response execute(final AccessToken token)
-			    {
-				return documentClient.tenant(yaasAware.getHybrisTenant())
-					.clientData(client)
-					.type(TYPE)
-					.dataId(mediaId)
-					.prepareGet()
-					.withAuthorization(authorizationHelper.buildToken(token))
-					.execute();
-			    }
-			});
-
-	if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-	    ErrorHandler.handleResponse(response);
-	}
-
-	DocumentWishlistMediaRead documentWishlistMediaRead = response.readEntity(DocumentWishlistMediaRead.class);
-	final String mediaRepoId = (String) documentWishlistMediaRead.getWishlistMedia().getId();
-
-	response = authorizedExecutionTemplate
-		.executeAuthorized(
-			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
-				authorizationHelper.getScopes()),
-			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-			new AuthorizedExecutionCallback<Response>()
-			{
-			    @Override
-			    public Response execute(final AccessToken token)
-			    {
-				return documentClient.tenant(yaasAware.getHybrisTenant())
-					.clientData(client)
-					.type(TYPE)
-					.dataId(mediaId)
-					.prepareDelete()
-					.withAuthorization(authorizationHelper.buildToken(token))
-					.execute();
-			    }
-			});
-
-	if (response.getStatus() != Response.Status.NO_CONTENT.getStatusCode()) {
-	    ErrorHandler.handleResponse(response);
-	}
-	response = authorizedExecutionTemplate
-		.executeAuthorized(
-			authorizationHelper.getAuthorizationScope(yaasAware.getHybrisTenant(),
-				authorizationHelper.getScopes()),
-			new DiagnosticContext(yaasAware.getHybrisRequestId(), yaasAware.getHybrisHop()),
-			new AuthorizedExecutionCallback<Response>()
-			{
-			    @Override
-			    public Response execute(final AccessToken token)
-			    {
-				return mediaClient.tenant(yaasAware.getHybrisTenant())
-					.client(client)
-					.media()
-					.mediaId(mediaRepoId)
-					.prepareDelete()
-					.withAuthorization(authorizationHelper.buildToken(token))
-					.execute();
-			    }
-			});
-
-	return Response.noContent().build();
-    }
 }

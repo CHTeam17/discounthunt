@@ -5,9 +5,8 @@ This is an example implementation of the YaaS "Wishlist" RAML based on Java. It 
 API Console
 -----------
 
-You can open the API Console in a separate window by using the following links: 
-- [API Console - Internal](http://java-wishlist-example.us-east.cf.yaas.io)
-- [API Console - External](https://api.yaas.io/sap/java-wishlist/example)
+You can open the API Console in a separate window by using the following link: 
+- [API Console](https://api.yaas.io/sap/java-wishlist/example)
 
 
 Tenant Information
@@ -93,6 +92,7 @@ You also need to [create a customer](https://devportal.yaas.io/services/customer
 
 Finally, use `mvn clean install` to build the service and run the tests.
 
+To run it locally you can call `mvn jetty:run` and navigate to the local [API-Console](http://localhost:8080)
 
 FAQ / Troubleshooting
 ---------------------
