@@ -1,6 +1,3 @@
-/*
- * Created with [y] hybris Service SDK version 4.0.0.
- */
 package com.sap.wishlist;
 
 import org.glassfish.jersey.media.multipart.MultiPartFeature;

@@ -1,14 +1,3 @@
-/*
- * [y] hybris Platform
- *
- * Copyright (c) 2000-2015 hybris AG
- * All rights reserved.
- *
- * This software is the confidential and proprietary information of hybris
- * ("Confidential Information"). You shall not disclose such Confidential
- * Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with hybris.
- */
 package com.sap.wishlist.api.generated;
 
 import java.io.InputStream;
@@ -27,7 +16,7 @@ import com.sap.wishlist.service.WishlistMediaService;
 import com.sap.wishlist.service.WishlistService;
 
 /**
- * Resource class containing the custom logic. Please put your logic here!
+ * Resource class containing the custom logic.
  */
 @Component("apiWishlistsResource")
 @Singleton

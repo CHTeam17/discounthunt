@@ -1,7 +1,4 @@
-/*
- * Created with [y] hybris Service SDK version 4.0.0.
- */
 /**
- * Contains the application config.
+ * Contains the application configuration.
  */
 package com.sap.wishlist;
