@@ -16,7 +16,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<!-- hybris projects -->
+		<!-- SAP projects -->
 		<service-sdk.version>4.3.4</service-sdk.version>
 
 		<!-- plugins -->
