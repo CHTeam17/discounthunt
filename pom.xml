@@ -195,7 +195,7 @@
                             <goal>generate-client</goal>
                         </goals>
                         <configuration>
-                            <sourceRamlUri>https://api.yaas.io/hybris/email/b1/api-console/raml/api/emailservice.raml</sourceRamlUri>
+                            <sourceRamlFile>emailservice.raml</sourceRamlFile>
                             <basePackage>com.sap.wishlist.client.email</basePackage>
                         </configuration>
                     </execution>
