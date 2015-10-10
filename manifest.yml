@@ -15,10 +15,10 @@ applications:
   instances: 1
   memory: 1024M
   host: java-jersey-wishlist
-  domain: sample.com
+  domain: de.a9sapp.eu
   path: target/java-jersey-wishlist.war
   env:
     YAAS_CLIENT: java-jersey-wishlist
-    YAAS_CLIENT_ID: please fill
-    YAAS_CLIENT_SECRET: please fill
+    YAAS_CLIENT_ID: g3EL8AAWeGm6qvmYK7YijqZ8JFMf18lM
+    YAAS_CLIENT_SECRET: xvgKidmq7EZXP7pB
     YAAS_CLIENT_IS_APPLICATION: false
